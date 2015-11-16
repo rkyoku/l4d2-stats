@@ -1,0 +1,35 @@
+"AddonInfo"
+{
+	addonSteamAppID					550
+	addonTitle						"Advanced Stats"
+	addonVersion					"0.1"
+	addonTagline					"Advanced Stats - Better stats during endgame"
+	addonAuthor						"Lideln"
+	addonAuthorSteamID				"LidelnFR"
+	addonURL0						"http://www.l4dmaps.com"
+ 
+	addonContent_Campaign			0
+	addonContent_Survival			0
+	addonContent_Scavenge			0
+	addonContent_Versus				0
+	addonContent_Map				0
+ 
+	addonContent_Survivor			0
+	addonContent_Skin				0
+ 
+	addonContent_BossInfected		0
+	addonContent_CommonInfected		0
+	addonContent_Music				0
+	addonContent_Sound				0
+	addonContent_Prop				0
+	addonContent_Prefab				0
+	addonContent_Spray				0
+	addonContent_Script				1
+	addonContent_BackgroundMovie	0
+ 
+	Content_Weapon					0
+	Content_WeaponModel				0
+ 
+	addonDescription				"Advanced Stats will show more detailed stats during endgame, like the amount of health points taken by each player because of friendly fire, the amount of hits received from common infected, etc."
+	addonDescription_FR				"Advanced Stats montrera davantage de stats détaillées durant les crédits, comme par exemple le nombre de points de vie retirés par chaque joueur à cause du friendly fire, le nombre de coups reçus d'infectés communs, etc."
+}
