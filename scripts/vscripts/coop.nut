@@ -16,7 +16,7 @@ printl("    * When using a 'Lee' mod (for Coach) the stats do not save for Lee..
 ::ADV_STATS_DUMP <- true // Dump of data at start/end of map
 ::AdvStats <- {cache = {}, hud_visible = false, finale_win = false}
 ::ADV_STATS_BOTS <- ["Coach", "Ellis", "Rochelle", "Nick", "Louis", "Bill", "Francis", "Rochelle"]
-::ADV_STATS_SI <- ["Boomer", "Spitter", "Hunter", "Jockey", "Smoker"]
+::ADV_STATS_SI <- ["Boomer", "Spitter", "Hunter", "Jockey", "Smoker", "Charger"]
 
 
 
