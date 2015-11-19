@@ -12,7 +12,6 @@ createTickerOnlyHUD()
 Ticker_NewStr("Coucou")
 */
 
-
 function subPseudo(sPseudo)
 {
 	if (sPseudo.len() < 9)
@@ -20,7 +19,6 @@ function subPseudo(sPseudo)
 
 	return sPseudo.slice(0, 8);
 }
-
 
 function sortTable(aTable, bMinFirst = true)
 {
@@ -119,11 +117,6 @@ function sortForDmgDealt()
 	return sortTable(aStats, false);
 }
 
-
-
-
-
-
 /**
  * Compiling FF damage stats
  */
@@ -151,7 +144,6 @@ function compileStatsFF()
 	return sRes == "" ? "No Stats Yet" : "FF (Dmg, Incap, TK):\n" + sRes;
 }
 
-
 /**
  * Compiling special infected stats
  */
@@ -176,7 +168,6 @@ function compileStatsSI()
 
 	return sRes == "" ? "No Stats Yet" : "SI (Kills, HS, Dmg)\n" + sRes;
 }
-
 
 /**
  * Compiling damage received
@@ -225,13 +216,13 @@ function compileStatsDMG()
 	return sRes == "" ? "No Stats Yet" : "Damage (Tanks, Witches):\n" + sRes;
 }
 
-
-
 /**
  * Clear the HUD
  */
 function clearHUD()
 {
+	::ADV_STATS_LOGGER.debug("HUD clearHUD")
+
 	if (::AdvStats.hud_visible == false || ::AdvStats.finale_win == true)
 		return;
 
@@ -248,6 +239,8 @@ function clearHUD()
 	advStatsHUD.Fields.si.flags = HUD_FLAG_NOBG | HUD_FLAG_NOTVISIBLE;
 	
 	::AdvStats.hud_visible = false;
+	
+	::ADV_STATS_LOGGER.debug("HUD cleared");
 }
 
 /**
@@ -255,6 +248,8 @@ function clearHUD()
  */
 function showHUD()
 {
+    ::ADV_STATS_LOGGER.debug("HUD showHUD");
+
 	if (::AdvStats.hud_visible == true)
 		return;
 
@@ -269,18 +264,15 @@ function showHUD()
 	advStatsHUD.Fields.dmg.flags = HUD_FLAG_NOBG;
 	advStatsHUD.Fields.si.flags = HUD_FLAG_NOBG;
 
-	printl("++++++++++++++ Show HUD 2")
+	::ADV_STATS_LOGGER.debug("Show HUD 2")
 	
 	::AdvStats.hud_visible = true;
 }
-
-
 
 HUDPlace(HUD_LEFT_TOP, 0, 0.01, 0.3, 0.2)
 HUDPlace(HUD_MID_TOP, 0.4, 0.01, 0.2, 0.2)
 HUDPlace(HUD_RIGHT_TOP, 0.7, 0.01, 0.3, 0.2)
 HUDPlace(HUD_FAR_LEFT, 0, 0.4, 0.3, 0.2)
-
 
 advStatsHUD <-
 {
@@ -294,4 +286,3 @@ advStatsHUD <-
 }
 
 HUDSetLayout(advStatsHUD)
-	

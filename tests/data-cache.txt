@@ -1,0 +1,80 @@
+/*
+::AdvStats.cache <- {
+	Test1 = {
+		ff = { // Friendly fire stats
+			dmg = {
+				Test2 = 14
+			},
+			incap = {
+				Test2 = 2
+			},
+			tk = {
+				Test2 = 1
+			}
+		},
+		dmg = { // Damage dealt
+			tanks = 1347,
+			witches = 241
+		},
+		hits = { // Hits received
+			infected = 5
+		}
+	},
+	Test2 = {
+		ff = { // Friendly fire stats
+			dmg = {
+				Test1 = 7
+			},
+			incap = {
+				Test3 = 1
+			},
+			tk = {
+			}
+		},
+		dmg = { // Damage dealt
+			tanks = 456,
+			witches = 12
+		},
+		hits = { // Hits received
+			infected = 7
+		}
+	},
+	Test3 = {
+		ff = { // Friendly fire stats
+			dmg = {
+				Test3 = 54
+			},
+			incap = {
+				Test4 = 1
+			},
+			tk = {
+			}
+		},
+		dmg = { // Damage dealt
+			tanks = 4235,
+			witches = 10
+		},
+		hits = { // Hits received
+			infected = 1
+		}
+	},
+	Test4 = {
+		ff = { // Friendly fire stats
+			dmg = {
+				Test1 = 25
+			},
+			incap = {
+			},
+			tk = {
+			}
+		},
+		dmg = { // Damage dealt
+			tanks = 752,
+			witches = 3248
+		},
+		hits = { // Hits received
+			infected = 16
+		}
+	}
+};
+*/
