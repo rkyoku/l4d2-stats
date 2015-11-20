@@ -118,12 +118,6 @@ function OnGameEvent_infected_hurt(params)
 
 	local victim = EntIndexToHScript(params.entityid)
 
-/*
-	printl("Name " + victim.GetName())
-	printl("Health " + victim.GetHealth())
-	printl("Classname " + victim.GetClassname())
-*/
-
 	if (victim.GetClassname() != "witch")
 		return
 	
@@ -190,7 +184,7 @@ function OnGameEvent_player_death(params)
 
 	::ADV_STATS_LOGGER.info(sAttName + " killed " + sVicName);
 
-	// TK ...
+	// TK
 	if (victim.IsSurvivor())
 	{
 		::AdvStats.initPlayerCache(sAttName);
@@ -234,13 +228,13 @@ function OnGameEvent_player_incapacitated(params)
 	local victim = GetPlayerFromUserID(params.userid)
 	if (!victim.IsSurvivor())
 		return
-	local sAttName = attacker.GetPlayerName()//GetCharacterDisplayName(attacker)
+	local sAttName = attacker.GetPlayerName()
 
 	// We don't want to store stats for bots
 	if (::AdvStats.isBot(sAttName))
 		return;
 	
-	local sVicName = victim.GetPlayerName()//GetCharacterDisplayName(victim)
+	local sVicName = victim.GetPlayerName()
 
 	::ADV_STATS_LOGGER.debug("Player Incapacitated", params)
 	//DeepPrintTable(params)
@@ -321,14 +315,6 @@ function OnGameEvent_player_hurt(params)
 		return;
 	}
 
-/*
-	printl("Survivor " + victim.IsSurvivor())
-	printl("Name " + victim.GetName())
-	printl("Health " + victim.GetHealth())
-	printl("Classname " + victim.GetClassname())
-	printl("Playername " + victim.GetPlayerName())
-*/
-
 	local sAttName = attacker.GetPlayerName()//GetCharacterDisplayName(attacker)
 
 	// We don't want to store stats for bots
@@ -364,13 +350,6 @@ function OnGameEvent_player_hurt(params)
 	// Damage to other players
 	//
 	::ADV_STATS_LOGGER.info(sAttName + " hurt " + sVicName + " for " + params.dmg_health + " HP");
-
-/*
-	printl("Vic health : " + victim.GetHealth())
-	printl("Vic is incap : " + victim.IsIncapacitated())
-	printl("Vic is dying : " + victim.IsDying())
-	printl("Vic is dead : " + victim.IsDead())
-*/
 
 	::AdvStats.initPlayerCache(sAttName);
 	if (!(sVicName in ::AdvStats.cache[sAttName].ff.dmg))
