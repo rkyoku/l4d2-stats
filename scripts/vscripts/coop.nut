@@ -10,7 +10,7 @@ IncludeScript("logger.nut")
 ::ADV_STATS_LOG_LEVEL <- 2 // 0 = no debug, 1 = info, 2 = debug
 ::ADV_STATS_DUMP <- true // Dump of data at start/end of map
 ::AdvStats <- {cache = {}, hud_visible = false, finale_win = false}
-::ADV_STATS_BOTS <- ["Coach", "Ellis", "Rochelle", "Nick", "Louis", "Bill", "Francis", "Rochelle"]
+::ADV_STATS_BOTS <- ["Coach", "Ellis", "Rochelle", "Nick", "Louis", "Bill", "Francis", "Zoey"]
 ::ADV_STATS_SI <- ["Boomer", "Spitter", "Hunter", "Jockey", "Smoker", "Charger"]
 
 IncludeScript("hud.nut")
