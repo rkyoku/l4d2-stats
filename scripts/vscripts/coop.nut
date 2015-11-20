@@ -34,7 +34,11 @@ function AdvStatsDebug()
 
 function AdvStats::isSpecialInfected(sName)
 {
-	return ::ADV_STATS_SI.find(sName) != null
+    if (::ADV_STATS_SI.find(sName) != null)
+		return true;
+
+	// when a special infected spawn twice, the second name is prefixed by "(1)"
+	return ::ADV_STATS_SI.find("(1)" + sName) != null
 }
 
 function AdvStats::isBot(sName)
@@ -76,12 +80,14 @@ function AdvStats::initPlayerCache(sPlayer)
 			witches = 0
 		},
 		hits = { // Hits received
-			infected = 0
+			infected = 0,
+			si_hits = 0,
+			si_dmg = 0
 		},
 		specials = {
 			dmg = 0,
 			kills = 0,
-			kills_hs = 0 // head shots
+			kills_hs = 0, // head shots
 		}
 	};
 }

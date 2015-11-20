@@ -8,7 +8,7 @@ class Logger
 	
 	// all messages from AdvStats will be prefixed by this text 
 	static log_prefix = "[ADV_STATS] ";
-	
+
 	function info(message)
 	{
 		if (!(::ADV_STATS_LOG_LEVEL >= levels.info))
@@ -26,8 +26,8 @@ class Logger
 		
 		if (!params)
 		    return
-        
-		// @TODO find a way to access the DeepPrintTable from here
+
+		// @TODO find a way to access to the DeepPrintTable method from here
  		//DeepPrintTable(params);
 	}
 }

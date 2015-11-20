@@ -148,6 +148,8 @@ function OnGameEvent_infected_hurt(params)
 
 /**
  * Called when a player is dead
+ *
+ * NOTA: this event is also fired when a special infected die
  */
 function OnGameEvent_player_death(params)
 {
@@ -173,7 +175,7 @@ function OnGameEvent_player_death(params)
 	//DeepPrintTable(params)
 	
 	local victim = GetPlayerFromUserID(params.userid)
- 	::ADV_STATS_LOGGER.debug(victim.GetPlayerName());
+ 	::ADV_STATS_LOGGER.debug("Victim's PlayerName:" + victim.GetPlayerName());
 
 	//if (!victim.IsSurvivor())
 	//	return
@@ -208,7 +210,7 @@ function OnGameEvent_player_death(params)
 		}
 	}
 
-	AdvStatsDebug();
+	//AdvStatsDebug();
 }
 
 /**
@@ -270,7 +272,7 @@ function OnGameEvent_player_hurt(params)
 	::ADV_STATS_LOGGER.debug("Player hurt", params);
 	
 	local victim = GetPlayerFromUserID(params.userid)
-	local sVicName = victim.GetPlayerName()//GetCharacterDisplayName(victim)
+	local sVicName = victim.GetPlayerName()
 
 	::ADV_STATS_LOGGER.debug("Victim name: " + sVicName);
 	
@@ -290,20 +292,34 @@ function OnGameEvent_player_hurt(params)
 			{
 				::ADV_STATS_LOGGER.info(sVicName + " got hit by an infected for " + params.dmg_health + " points");
 				::AdvStats.initPlayerCache(sVicName);
-				::AdvStats.cache[sVicName].hits.infected += 1 //params.dmg_health
+				::AdvStats.cache[sVicName].hits.infected += 1;
 			}
 		}
 
 		return
 	}
 	
+	local attacker = GetPlayerFromUserID(params.attacker)
+	local sAttName = attacker.GetPlayerName();
+	
+	// Damage dealt by special infected. Beware: special infected are also Players
+	if (!(::AdvStats.isBot(sVicName)) && !(::AdvStats.isSpecialInfected(sVicName)) && ::AdvStats.isSpecialInfected(sAttName) && params.dmg_health != 0 && !victim.IsIncapacitated())
+	{
+		::ADV_STATS_LOGGER.info(sVicName + " received damage by a " + sAttName + " for " + params.dmg_health + " points");
+		::AdvStats.initPlayerCache(sVicName);
+		::AdvStats.cache[sVicName].hits.si_dmg += params.dmg_health;
+		::AdvStats.cache[sVicName].hits.si_hits += 1;
+		
+		return;
+	}
+
 	//
 	// From now on we only take care with damage dealt by survivors
 	//
-	
-	local attacker = GetPlayerFromUserID(params.attacker)
-	if (!attacker.IsSurvivor())
-		return
+	if (!attacker.IsSurvivor()) {
+		::ADV_STATS_LOGGER.debug("Attacker not a survivor!");
+		return;
+	}
 
 /*
 	printl("Survivor " + victim.IsSurvivor())
@@ -361,15 +377,3 @@ function OnGameEvent_player_hurt(params)
 		::AdvStats.cache[sAttName].ff.dmg[sVicName] <- 0
 	::AdvStats.cache[sAttName].ff.dmg[sVicName] += params.dmg_health
 }
-
-/*
-function OnGameEvent_player_first_spawn(params)
-{
-	local user = GetPlayerFromUserID(params.userid)
-	if (!user.IsSurvivor())
-		return
-
-	printl("************** player_first_spawn")
-	DeepPrintTable(params)
-}
-*/

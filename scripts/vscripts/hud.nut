@@ -1,17 +1,3 @@
-/*
-function createTickerOnlyHUD(startStr = "")
-{
-   TickerHUD <- {}                                   // start with an empty HUD Table
-   Ticker_AddToHud( TickerHUD, startStr )            // add a ticker, defaulting to the empty string
-   HUDSetLayout( TickerHUD )                         // send this table (w/Ticker now) to start
-   HUDPlace( HUD_TICKER, 0.25, 0.04, 0.5, 0.08 )     // Move the Ticker from default to top of screen
-}
-
-createTickerOnlyHUD()
-
-Ticker_NewStr("Coucou")
-*/
-
 function subPseudo(sPseudo)
 {
 	if (sPseudo.len() < 9)
@@ -141,7 +127,7 @@ function compileStatsFF()
 				+ "\n";
 	}
 	
-	return sRes == "" ? "No Stats Yet" : "FF (Dmg, Incap, TK):\n" + sRes;
+	return sRes == "" ? "No Stats Yet" : "FF (Dmg, Incap, TK)\n" + sRes;
 }
 
 /**
@@ -183,11 +169,14 @@ function compileStatsCI()
 	foreach (iIdx, aTmp in aTable)
 	{
 		sPlayer = aTmp.key;
-		sRes += subPseudo(sPlayer) + ": " + aTmp.value + "\n";
-		/*sRes += (iIdx + 1) + ". " + aTmp.key + " : " + aTmp.value + "\n";*/
+		sRes += subPseudo(sPlayer) + ": "
+				+ aTmp.value
+				+ ", " + ::AdvStats.cache[sPlayer].hits.si_hits
+				+ ", " + ::AdvStats.cache[sPlayer].hits.si_dmg
+				+  "\n";
 	}
 
-	return sRes == "" ? "No Stats Yet" : "Hits from Zs:\n" + sRes;
+	return sRes == "" ? "No Stats Yet" : "Hits (Zs, SI) / Dmg (SI)\n" + sRes;
 }
 
 /**
@@ -213,7 +202,7 @@ function compileStatsDMG()
 				+ "\n";
 	}
 	
-	return sRes == "" ? "No Stats Yet" : "Damage (Tanks, Witches):\n" + sRes;
+	return sRes == "" ? "No Stats Yet" : "Damage (Tanks, Witches)\n" + sRes;
 }
 
 /**
@@ -264,8 +253,6 @@ function showHUD()
 	advStatsHUD.Fields.dmg.flags = HUD_FLAG_NOBG;
 	advStatsHUD.Fields.si.flags = HUD_FLAG_NOBG;
 
-	::ADV_STATS_LOGGER.debug("Show HUD 2")
-	
 	::AdvStats.hud_visible = true;
 }
 
