@@ -154,6 +154,7 @@ function OnGameEvent_player_death(params)
 
 	// We want only TK and killed SI
 	//if (!("userid" in params && "attacker" in params && params.attacker != 0))
+	// We don't want to store stats for bots
 	if (params.attackerisbot == 1)
 		return
 
@@ -164,23 +165,14 @@ function OnGameEvent_player_death(params)
 
 	if (params.victimname == "Infected")
 		return;
-
-	::ADV_STATS_LOGGER.debug("Player Death", params)
-	//DeepPrintTable(params)
 	
+	// We don't want to deal with a witch death here
+	if (params.victimname == "Witch")
+		return
+		
 	local victim = GetPlayerFromUserID(params.userid)
- 	::ADV_STATS_LOGGER.debug("Victim's PlayerName:" + victim.GetPlayerName());
-
-	//if (!victim.IsSurvivor())
-	//	return
-
-	local sAttName = attacker.GetPlayerName()//GetCharacterDisplayName(attacker)
-
-	// We don't want to store stats for bots
-	//if (::AdvStats.isBot(sAttName)) // NO NEED, already taken care of with params.attackerisbot
-	//	return;
-
-	local sVicName = victim.GetPlayerName()//GetCharacterDisplayName(victim)
+	local sAttName = attacker.GetPlayerName()
+	local sVicName = victim.GetPlayerName()
 
 	::ADV_STATS_LOGGER.info(sAttName + " killed " + sVicName);
 
@@ -190,6 +182,7 @@ function OnGameEvent_player_death(params)
 		::AdvStats.initPlayerCache(sAttName);
 		if (!(sVicName in ::AdvStats.cache[sAttName].ff.tk))
 			::AdvStats.cache[sAttName].ff.tk[sVicName] <- 0
+
 		::AdvStats.cache[sAttName].ff.tk[sVicName] += 1
 	}
 	else
@@ -203,8 +196,6 @@ function OnGameEvent_player_death(params)
 				::AdvStats.cache[sAttName].specials.kills_hs += 1
 		}
 	}
-
-	//AdvStatsDebug();
 }
 
 /**
@@ -293,7 +284,7 @@ function OnGameEvent_player_hurt(params)
 		return
 	}
 	
-	local attacker = GetPlayerFromUserID(params.attacker)
+	local attacker = GetPlayerFromUserID(params.attacker);
 	local sAttName = attacker.GetPlayerName();
 	
 	// Damage dealt by special infected. Beware: special infected are also Players
@@ -310,12 +301,13 @@ function OnGameEvent_player_hurt(params)
 	//
 	// From now on we only take care with damage dealt by survivors
 	//
-	if (!attacker.IsSurvivor()) {
+	if (!attacker.IsSurvivor())
+	{
 		::ADV_STATS_LOGGER.debug("Attacker not a survivor!");
 		return;
 	}
 
-	local sAttName = attacker.GetPlayerName()//GetCharacterDisplayName(attacker)
+	local sAttName = attacker.GetPlayerName();
 
 	// We don't want to store stats for bots
 	if (::AdvStats.isBot(sAttName))
@@ -354,5 +346,6 @@ function OnGameEvent_player_hurt(params)
 	::AdvStats.initPlayerCache(sAttName);
 	if (!(sVicName in ::AdvStats.cache[sAttName].ff.dmg))
 		::AdvStats.cache[sAttName].ff.dmg[sVicName] <- 0
+
 	::AdvStats.cache[sAttName].ff.dmg[sVicName] += params.dmg_health
 }

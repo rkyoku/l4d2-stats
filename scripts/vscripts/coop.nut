@@ -37,7 +37,7 @@ function AdvStats::isSpecialInfected(sName)
     if (::ADV_STATS_SI.find(sName) != null)
 		return true;
 
-	// when a special infected spawn twice, the second name is prefixed by "(1)"
+	// when a special infected spawn twice, the second name seems to be prefixed by "(1)"
 	return ::ADV_STATS_SI.find("(1)" + sName) != null
 }
 

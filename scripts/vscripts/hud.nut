@@ -65,7 +65,7 @@ function sortForFFDmg()
 }
 
 /**
- * Sum the damage done to Special Infected
+ * Sum the damage dealt to Special Infected
  */
 function sortForSIDmg()
 {
@@ -78,7 +78,7 @@ function sortForSIDmg()
 }
 
 /**
- * Sum the damage done
+ * Sum the damage dealt to Common Infected
  */
 function sortForCIHits()
 {
@@ -91,7 +91,7 @@ function sortForCIHits()
 }
 
 /**
- * Sum the damage done
+ * Sum the damage dealt to Tanks and Witches
  */
 function sortForDmgDealt()
 {
@@ -156,7 +156,7 @@ function compileStatsSI()
 }
 
 /**
- * Compiling damage received
+ * Compiling common infected stats
  */
 function compileStatsCI()
 {
@@ -202,7 +202,7 @@ function compileStatsDMG()
 				+ "\n";
 	}
 	
-	return sRes == "" ? "No Stats Yet" : "Damage (Tanks, Witches)\n" + sRes;
+	return sRes == "" ? "No Stats Yet" : "Dmg (Tanks, Witches)\n" + sRes;
 }
 
 /**
@@ -233,7 +233,7 @@ function clearHUD()
 }
 
 /**
- * Show the stats
+ * Show the HUD
  */
 function showHUD()
 {
