@@ -1,16 +1,4 @@
 /**
- * Called when a player leaves the start area
- *
- * NOTA: it seems to be called only when leaving the shelter of the first played map
- */
-function OnGameEvent_player_left_start_area(params)
-{
-    ::ADV_STATS_LOGGER.debug("Event player_left_start_area");
-
-	clearHUD();
-}
-
-/**
  * Called when a player leaves a checkpoint
  *
  * NOTA: this function seems to be called when survivors spawn inside shelter,
