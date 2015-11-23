@@ -51,7 +51,7 @@ function AdvStats::isBot(sName)
  */
 function AdvStats::init()
 {
-	::ADV_STATS_LOGGER.debug("Init");
+	::ADV_STATS_LOGGER.debug("Coop Init");
 
 	::AdvStats.cache <- {};
 }
@@ -61,6 +61,8 @@ function AdvStats::init()
  */
 function AdvStats::initPlayerCache(sPlayer)
 {
+	::ADV_STATS_LOGGER.debug("Coop InitPlayerCache");
+
 	// We don't want to store stats for bots
 	if (::AdvStats.isBot(sPlayer))
 		return;
@@ -97,7 +99,7 @@ function AdvStats::initPlayerCache(sPlayer)
  */
 function AdvStats::save()
 {
-	::ADV_STATS_LOGGER.debug("Saving stats...");
+	::ADV_STATS_LOGGER.debug("Coop Saving stats...");
 
 	if (::AdvStats.finale_win == true)
 	{
@@ -113,7 +115,7 @@ function AdvStats::save()
  */
 function AdvStats::load()
 {
-	::ADV_STATS_LOGGER.debug("Loading stats...");
+	::ADV_STATS_LOGGER.debug("Coop Loading stats...");
 	
 	RestoreTable("_adv_stats", ::AdvStats.cache)
 	if (::AdvStats.cache.len() == 0)

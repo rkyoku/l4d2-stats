@@ -132,8 +132,6 @@ function OnGameEvent_infected_hurt(params)
 		return;
 
 	::ADV_STATS_LOGGER.debug("Witch Hurt", params)
-	//DeepPrintTable(params)
-	
 	::ADV_STATS_LOGGER.info(sAttName + " dealt " + params.amount + " to Witch")
 	
 	::AdvStats.initPlayerCache(sAttName);
@@ -228,7 +226,6 @@ function OnGameEvent_player_incapacitated(params)
 	local sVicName = victim.GetPlayerName()
 
 	::ADV_STATS_LOGGER.debug("Player Incapacitated", params)
-	//DeepPrintTable(params)
 
 	//FireGameEvent("game_message", {target = 1, text = sAttName + " incapacitatedss " + sVicName})
 	//ShowMessage(sAttName + " incapacitatedss " + sVicName)
@@ -254,7 +251,7 @@ function OnGameEvent_player_hurt(params)
 	if (!params.rawin("userid") || ((!params.rawin("attackerentid") || params.attackerentid == 0) && params.attacker == 0))
 		return
 
-	::ADV_STATS_LOGGER.debug("Player hurt", params);
+	::ADV_STATS_LOGGER.debug("Player hurt");
 	
 	local victim = GetPlayerFromUserID(params.userid)
 	local sVicName = victim.GetPlayerName()
@@ -303,7 +300,7 @@ function OnGameEvent_player_hurt(params)
 	//
 	if (!attacker.IsSurvivor())
 	{
-		::ADV_STATS_LOGGER.debug("Attacker not a survivor!");
+		::ADV_STATS_LOGGER.debug("Attacker not a survivor!", params);
 		return;
 	}
 

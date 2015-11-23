@@ -27,7 +27,6 @@ class Logger
 		if (!params)
 		    return
 
-		// @TODO find a way to access to the DeepPrintTable method from here
- 		//DeepPrintTable(params);
+		g_ModeScript.DeepPrintTable(params);
 	}
 }

@@ -229,7 +229,7 @@ function clearHUD()
 	
 	::AdvStats.hud_visible = false;
 	
-	::ADV_STATS_LOGGER.debug("HUD cleared");
+	::ADV_STATS_LOGGER.info("HUD cleared");
 }
 
 /**
@@ -254,6 +254,8 @@ function showHUD()
 	advStatsHUD.Fields.si.flags = HUD_FLAG_NOBG;
 
 	::AdvStats.hud_visible = true;
+	
+	::ADV_STATS_LOGGER.info("HUD displayed");
 }
 
 HUDPlace(HUD_LEFT_TOP, 0, 0.01, 0.3, 0.2)
