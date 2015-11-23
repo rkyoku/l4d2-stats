@@ -105,7 +105,6 @@ function OnGameEvent_infected_hurt(params)
 		return
 
 	local victim = EntIndexToHScript(params.entityid)
-
 	if (victim.GetClassname() != "witch")
 		return
 	
@@ -115,8 +114,8 @@ function OnGameEvent_infected_hurt(params)
 	
 	local sAttName = attacker.GetPlayerName()
 	
-	// We don't want to store stats for bots
-	if (::AdvStats.isBot(sAttName))
+	// Stats for bots
+	if (!::ADV_STATS_ALLOW_BOTS && ::AdvStats.isBot(sAttName))
 		return;
 
 	::ADV_STATS_LOGGER.debug("Witch Hurt", params)
@@ -129,7 +128,7 @@ function OnGameEvent_infected_hurt(params)
 /**
  * Called when a player is dead
  *
- * NOTA: this event is also fired when a special infected die
+ * NOTA: this event is also fired for a special infected, a common infected, a witch, a tank...
  */
 function OnGameEvent_player_death(params)
 {
@@ -138,27 +137,25 @@ function OnGameEvent_player_death(params)
 	if (::AdvStats.finale_win == true)
 		return;
 
-	// We want only TK and killed SI
-	//if (!("userid" in params && "attacker" in params && params.attacker != 0))
-	// We don't want to store stats for bots
-	if (params.attackerisbot == 1)
+	// We want only survivors
+	if (!("userid" in params && "attacker" in params && params.attacker != 0))
 		return
-
+	
+	if (params.victimname == "Infected" || params.victimname == "Witch" || params.victimname == "Tank")
+		return;
+		
 	// We want only players kills
-	local attacker = GetPlayerFromUserID(params.attacker)
+	local attacker = GetPlayerFromUserID(params.attacker);
 	if (!attacker.IsSurvivor())
 		return
 
-	if (params.victimname == "Infected")
-		return;
+	local victim = GetPlayerFromUserID(params.userid);
+	local sAttName = attacker.GetPlayerName();
+	local sVicName = victim.GetPlayerName();
 	
-	// We don't want to deal with a witch death here
-	if (params.victimname == "Witch")
-		return
-		
-	local victim = GetPlayerFromUserID(params.userid)
-	local sAttName = attacker.GetPlayerName()
-	local sVicName = victim.GetPlayerName()
+	// Stats for bots
+	if (!::ADV_STATS_ALLOW_BOTS && ::AdvStats.isBot(sAttName))
+		return;
 
 	::ADV_STATS_LOGGER.info(sAttName + " killed " + sVicName);
 
@@ -194,7 +191,7 @@ function OnGameEvent_player_incapacitated(params)
 	if (::AdvStats.finale_win == true)
 		return;
 
-	// We want only incap dealt by survivors
+	// We want only by survivors
 	if (!("userid" in params && "attacker" in params && params.attacker != 0))
 		return
 		
@@ -207,8 +204,8 @@ function OnGameEvent_player_incapacitated(params)
 		return
 	local sAttName = attacker.GetPlayerName()
 
-	// We don't want to store stats for bots
-	if (::AdvStats.isBot(sAttName))
+	// Stats for bots
+	if (!::ADV_STATS_ALLOW_BOTS && ::AdvStats.isBot(sAttName))
 		return;
 	
 	local sVicName = victim.GetPlayerName()
@@ -246,13 +243,13 @@ function OnGameEvent_player_hurt(params)
 
 	::ADV_STATS_LOGGER.debug("Victim name: " + sVicName);
 	
+	// Stats for bots
+	if (!::ADV_STATS_ALLOW_BOTS && ::AdvStats.isBot(sVicName))
+		return;
+	
 	// Not hit by a player (survivor, special infected, tank)
 	if (!("attacker" in params && params.attacker != 0))
 	{
-		// We don't want to store stats for bots
-		if (::AdvStats.isBot(sVicName))
-			return;
-
 		// Player hit by an infected or witch
 		if ("attackerentid" in params && params.attackerentid != 0 && victim.IsSurvivor())
 		{
@@ -273,7 +270,7 @@ function OnGameEvent_player_hurt(params)
 	local sAttName = attacker.GetPlayerName();
 	
 	// Damage dealt by special infected. Beware: special infected are also Players
-	if (!(::AdvStats.isBot(sVicName)) && !(::AdvStats.isSpecialInfected(sVicName)) && ::AdvStats.isSpecialInfected(sAttName) && params.dmg_health != 0 && !victim.IsIncapacitated())
+	if (!::AdvStats.isSpecialInfected(sVicName) && ::AdvStats.isSpecialInfected(sAttName) && params.dmg_health != 0 && !victim.IsIncapacitated())
 	{
 		::ADV_STATS_LOGGER.info(sVicName + " received damage by a " + sAttName + " for " + params.dmg_health + " points");
 		::AdvStats.initPlayerCache(sVicName);
@@ -294,8 +291,8 @@ function OnGameEvent_player_hurt(params)
 
 	local sAttName = attacker.GetPlayerName();
 
-	// We don't want to store stats for bots
-	if (::AdvStats.isBot(sAttName))
+	// Stats for bots
+	if (!::ADV_STATS_ALLOW_BOTS && ::AdvStats.isBot(sAttName))
 		return;
 
 	//

@@ -1,6 +1,6 @@
 printl("################################################")
 printl("###                                          ###")
-printl("###            Advanced Stats V 0.2          ###")
+printl("###           Advanced Stats V 0.3           ###")
 printl("###                                          ###")
 printl("################################################")
 
@@ -9,6 +9,7 @@ IncludeScript("logger.nut")
 
 ::ADV_STATS_LOG_LEVEL <- 2 // 0 = no debug, 1 = info, 2 = debug
 ::ADV_STATS_DUMP <- true // Dump of data at start/end of map
+::ADV_STATS_ALLOW_BOTS <- false // Allow stats for bots
 ::AdvStats <- {cache = {}, hud_visible = false, finale_win = false}
 ::ADV_STATS_BOTS <- ["Coach", "Ellis", "Rochelle", "Nick", "Louis", "Bill", "Francis", "Zoey"]
 ::ADV_STATS_SI <- [
@@ -65,10 +66,6 @@ function AdvStats::init()
 function AdvStats::initPlayerCache(sPlayer)
 {
 	::ADV_STATS_LOGGER.debug("Coop InitPlayerCache");
-
-	// We don't want to store stats for bots
-	if (::AdvStats.isBot(sPlayer))
-		return;
 
 	// Already initialized
 	if (::AdvStats.cache.rawin(sPlayer))
