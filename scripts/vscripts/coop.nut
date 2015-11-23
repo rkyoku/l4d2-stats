@@ -11,7 +11,14 @@ IncludeScript("logger.nut")
 ::ADV_STATS_DUMP <- true // Dump of data at start/end of map
 ::AdvStats <- {cache = {}, hud_visible = false, finale_win = false}
 ::ADV_STATS_BOTS <- ["Coach", "Ellis", "Rochelle", "Nick", "Louis", "Bill", "Francis", "Zoey"]
-::ADV_STATS_SI <- ["Boomer", "Spitter", "Hunter", "Jockey", "Smoker", "Charger"]
+::ADV_STATS_SI <- [
+	"Boomer", "(1)Boomer", "(2)Boomer", "(3)Boomer",
+	"Charger", "(1)Charger", "(2)Charger", "(3)Charger",
+	"Hunter", "(1)Hunter", "(2)Hunter", "(3)Hunter",
+	"Jockey", "(1)Jockey", "(2)Jockey", "(3)Jockey",
+	"Smoker", "(1)Smoker", "(2)Smoker", "(3)Smoker",
+	"Spitter", "(1)Spitter", "(2)Spitter", "(3)Spitter"
+]
 
 IncludeScript("hud.nut")
 IncludeScript("events.nut")
@@ -34,16 +41,12 @@ function AdvStatsDebug()
 
 function AdvStats::isSpecialInfected(sName)
 {
-    if (::ADV_STATS_SI.find(sName) != null)
-		return true;
-
-	// when a special infected spawn twice, the second name seems to be prefixed by "(1)"
-	return ::ADV_STATS_SI.find("(1)" + sName) != null
+	return ::ADV_STATS_SI.find(sName) != null;
 }
 
 function AdvStats::isBot(sName)
 {
-	return ::ADV_STATS_BOTS.find(sName) != null
+	return ::ADV_STATS_BOTS.find(sName) != null;
 }
 
 /**
