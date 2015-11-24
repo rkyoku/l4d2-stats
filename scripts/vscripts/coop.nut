@@ -1,14 +1,22 @@
 printl("################################################")
 printl("###                                          ###")
-printl("###            Advanced Stats V 0.2          ###")
+printl("###           Advanced Stats V 0.3           ###")
 printl("###                                          ###")
 printl("################################################")
 
-IncludeScript("logger.nut")
-::ADV_STATS_LOGGER <- Logger();
+/**
+ * Plugin settings
+ */
+::ADV_STATS_LOG_LEVEL <- 2 				// 0 = no debug, 1 = info, 2 = debug
+::ADV_STATS_DUMP <- true 				// Dump of data at start/end of map
+::ADV_STATS_BOTS_DISPLAY <- false 		// Activate the display of the bots' stats
+::ADV_STATS_FF_BOTS_ENABLED <- true 	// Activate FF done to bots
 
-::ADV_STATS_LOG_LEVEL <- 2 // 0 = no debug, 1 = info, 2 = debug
-::ADV_STATS_DUMP <- true // Dump of data at start/end of map
+IncludeScript("logger.nut")
+IncludeScript("hud.nut")
+IncludeScript("events.nut")
+
+::ADV_STATS_LOGGER <- Logger();
 ::AdvStats <- {cache = {}, hud_visible = false, finale_win = false}
 ::ADV_STATS_BOTS <- ["Coach", "Ellis", "Rochelle", "Nick", "Louis", "Bill", "Francis", "Zoey"]
 ::ADV_STATS_SI <- [
@@ -19,9 +27,6 @@ IncludeScript("logger.nut")
 	"Smoker", "(1)Smoker", "(2)Smoker", "(3)Smoker",
 	"Spitter", "(1)Spitter", "(2)Spitter", "(3)Spitter"
 ]
-
-IncludeScript("hud.nut")
-IncludeScript("events.nut")
 
 function AdvStatsDebug()
 {
@@ -65,10 +70,6 @@ function AdvStats::init()
 function AdvStats::initPlayerCache(sPlayer)
 {
 	::ADV_STATS_LOGGER.debug("Coop InitPlayerCache");
-
-	// We don't want to store stats for bots
-	if (::AdvStats.isBot(sPlayer))
-		return;
 
 	// Already initialized
 	if (::AdvStats.cache.rawin(sPlayer))
