@@ -150,7 +150,7 @@ function OnGameEvent_player_death(params)
 	local sAttName = attacker.GetPlayerName();
 	local sVicName = victim.GetPlayerName();
 
-	// TK
+	// Team Kill
 	if (victim.IsSurvivor())
 	{
 		// Bots
@@ -194,7 +194,7 @@ function OnGameEvent_player_incapacitated(params)
 	if (::AdvStats.finale_win == true)
 		return;
 
-	// We want only by survivors
+	// We want only players incapacitated by survivors
 	if (!("userid" in params && "attacker" in params && params.attacker != 0))
 		return
 		
@@ -209,7 +209,7 @@ function OnGameEvent_player_incapacitated(params)
 	local sAttName = attacker.GetPlayerName();
 	local sVicName = victim.GetPlayerName();
 	
-	::ADV_STATS_LOGGER.debug("Player Incapacitated", params)
+	::ADV_STATS_LOGGER.debug("Player Incapacitated", params);
 	
 	// Bots
 	if ((!::ADV_STATS_BOTS_DISPLAY && ::AdvStats.isBot(sAttName)) || (!::ADV_STATS_FF_BOTS_ENABLED && AdvStats.isBot(sVicName)))

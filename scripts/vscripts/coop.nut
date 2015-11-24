@@ -25,9 +25,12 @@ IncludeScript("events.nut")
 	"Hunter", "(1)Hunter", "(2)Hunter", "(3)Hunter",
 	"Jockey", "(1)Jockey", "(2)Jockey", "(3)Jockey",
 	"Smoker", "(1)Smoker", "(2)Smoker", "(3)Smoker",
-	"Spitter", "(1)Spitter", "(2)Spitter", "(3)Spitter"
+	"Spitter", "(1)Spitter", "(2)Spitter", "(3)Spitter",
 ]
 
+/**
+ * Stats cache debug
+ */
 function AdvStatsDebug()
 {
 	if (!::ADV_STATS_DUMP)
@@ -71,29 +74,28 @@ function AdvStats::initPlayerCache(sPlayer)
 {
 	::ADV_STATS_LOGGER.debug("Coop InitPlayerCache");
 
-	// Already initialized
 	if (::AdvStats.cache.rawin(sPlayer))
 		return;
 	
 	::AdvStats.cache[sPlayer] <- {
-		ff = { // Friendly fire stats
-			dmg = {},
-			incap = {},
-			tk = {}
+		ff = { 				// Friendly fire
+			dmg = {},		// Damage dealt
+			incap = {},		// Players incapacitated
+			tk = {},		// Team kill
 		},
-		dmg = { // Damage dealt
-			tanks = 0,
-			witches = 0
+		dmg = { 			// Damage dealt
+			tanks = 0,		// Tanks
+			witches = 0,	// Witches
 		},
-		hits = { // Hits received
-			infected = 0,
-			si_hits = 0,
-			si_dmg = 0
+		hits = { 			// Hits/damage received
+			infected = 0,	// By Common infected
+			si_hits = 0,	// By Special infected hits
+			si_dmg = 0,		// By Special infected damage
 		},
-		specials = {
-			dmg = 0,
-			kills = 0,
-			kills_hs = 0, // head shots
+		specials = {		// Special infected
+			dmg = 0,		// Damage dealt
+			kills = 0,		// Kills
+			kills_hs = 0, 	// Head shots
 		}
 	};
 }

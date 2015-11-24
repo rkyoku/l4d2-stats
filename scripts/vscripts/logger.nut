@@ -1,18 +1,18 @@
 class Logger
 {
-    // available log levels
+    // Available log levels
 	static levels = {
 		info = 1,
 		debug = 2
 	};
 	
-	// all messages from AdvStats will be prefixed by this text 
+	// Prefix text for all logs
 	static log_prefix = "[ADV_STATS] ";
 
 	function info(message)
 	{
 		if (!(::ADV_STATS_LOG_LEVEL >= levels.info))
-		    return
+		    return;
 		
 		printl(log_prefix + "[INFO] " + message);
 	}
@@ -20,12 +20,12 @@ class Logger
 	function debug(message, params = null)
 	{
 		if (!(::ADV_STATS_LOG_LEVEL >= levels.debug))
-		    return
+		    return;
 			
 		printl(log_prefix + "[DEBUG] " + message);
 		
 		if (!params)
-		    return
+		    return;
 
 		g_ModeScript.DeepPrintTable(params);
 	}

@@ -117,10 +117,6 @@ function compileStatsFF()
 	foreach (iIdx, aTmp in aFFDMG)
 	{
 		sPlayer = aTmp.key;
-		/*sRes += (iIdx + 1) + ". " + sPlayer + " : " + aTmp.value
-				+ " / " + sumTable(::AdvStats.cache[sPlayer].ff.incap)
-				+ " / " + sumTable(::AdvStats.cache[sPlayer].ff.tk)
-				+ "\n";*/
 		sRes += subPseudo(sPlayer) + ": " + aTmp.value
 				+ ", " + sumTable(::AdvStats.cache[sPlayer].ff.incap)
 				+ ", " + sumTable(::AdvStats.cache[sPlayer].ff.tk)
@@ -150,7 +146,6 @@ function compileStatsSI()
 				+ ", " + ::AdvStats.cache[sPlayer].specials.dmg
 				+ "\n";
 	}
-		/*sRes += (iIdx + 1) + ". " + aTmp.key + " : " + aTmp.value + "\n";*/
 
 	return sRes == "" ? "No Stats Yet" : "SI (Kills, HS, Dmg)\n" + sRes;
 }
@@ -192,10 +187,6 @@ function compileStatsDMG()
 	foreach (iIdx, aTmp in aTable)
 	{
 		sPlayer = aTmp.key;
-		/*sRes += (iIdx + 1) + ". " + sPlayer + " : "
-				+ ::AdvStats.cache[sPlayer].dmg.tanks
-				+ " / " + ::AdvStats.cache[sPlayer].dmg.witches
-				+ "\n";*/
 		sRes += subPseudo(sPlayer) + ": "
 				+ ::AdvStats.cache[sPlayer].dmg.tanks
 				+ ", " + ::AdvStats.cache[sPlayer].dmg.witches
@@ -242,7 +233,6 @@ function showHUD()
 	if (::AdvStats.hud_visible == true)
 		return;
 
-	//datafunc = @() g_ModeScript.compileStats()
 	advStatsHUD.Fields.ff.dataval = g_ModeScript.compileStatsFF();
 	advStatsHUD.Fields.ci.dataval = g_ModeScript.compileStatsCI();
 	advStatsHUD.Fields.dmg.dataval = g_ModeScript.compileStatsDMG();
