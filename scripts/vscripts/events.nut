@@ -115,11 +115,20 @@ function OnGameEvent_infected_hurt(params)
 	// Bots
 	if (!::ADV_STATS_BOTS_DISPLAY && ::AdvStats.isBot(sAttName))
 		return;
+		
+	local damageDone = 0;
+			
+	if (params.amount > victim.GetHealth()) {
+		::ADV_STATS_LOGGER.debug("Witch damage error: " + params.amount + " > " + victim.GetHealth());
+		damageDone = victim.GetHealth();
+	} else {
+		damageDone = params.amount;
+	}
 
 	::AdvStats.initPlayerCache(sAttName);
-	::AdvStats.cache[sAttName].dmg.witches += params.amount;
+	::AdvStats.cache[sAttName].dmg.witches += damageDone;
 	
-	::ADV_STATS_LOGGER.info(sAttName + " dealt " + params.amount + " to a Witch");
+	::ADV_STATS_LOGGER.info(sAttName + " dealt " + damageDone + " to a Witch");
 }
 
 /**
@@ -138,8 +147,14 @@ function OnGameEvent_player_death(params)
 	if (!("userid" in params && "attacker" in params && params.attacker != 0))
 		return;
 	
-	if (params.victimname == "Infected" || params.victimname == "Witch" || params.victimname == "Tank")
+	if (params.victimname == "Infected")
 		return;
+	
+	if (params.victimname == "Witch" || params.victimname == "Tank") {
+		::ADV_STATS_LOGGER.debug("A " +  params.victimname + " was killed");
+		
+		return;
+	}
 		
 	// We want only players kills
 	local attacker = GetPlayerFromUserID(params.attacker);
@@ -303,30 +318,45 @@ function OnGameEvent_player_hurt(params)
 		return;
 
 	//
-	// Damage to tanks
+	// Damage to tanks and special infected
 	//
 	if (!victim.IsSurvivor())
 	{
+		local damageDone = 0;
 		if (sVicName == "Tank")
 		{
-			::AdvStats.initPlayerCache(sAttName);
-			::AdvStats.cache[sAttName].dmg.tanks += params.dmg_health;
-			
-			::ADV_STATS_LOGGER.info(sAttName + " dealt " + params.dmg_health + " to a Tank");
-		}
-		else
-		{
-			// Damage to Special Infected
-			if (::AdvStats.isSpecialInfected(sVicName))
-			{
-				::AdvStats.initPlayerCache(sAttName);
-				::AdvStats.cache[sAttName].specials.dmg += params.dmg_health;
-				
-				::ADV_STATS_LOGGER.info(sAttName + " dealt " + params.dmg_health + " to a " + sVicName);
+			if (params.dmg_health > params.health) {
+				::ADV_STATS_LOGGER.debug("Tank damage error:", params);
+				damageDone = params.health;
+			} else {
+				damageDone = params.dmg_health;
 			}
+			
+			if (damageDone == 1) {
+				::ADV_STATS_LOGGER.debug("Tank damage error (should be impossible):", params);
+				
+				return;
+			}
+
+			::AdvStats.initPlayerCache(sAttName);
+			::AdvStats.cache[sAttName].dmg.tanks += damageDone;
+			
+			::ADV_STATS_LOGGER.info(sAttName + " dealt " + damageDone + " to a Tank");
+		}
+		else if (::AdvStats.isSpecialInfected(sVicName))
+		{
+			if (params.dmg_health > params.health) {
+				damageDone = params.health;
+			} else {
+				damageDone = params.dmg_health;
+			}
+			::AdvStats.initPlayerCache(sAttName);
+			::AdvStats.cache[sAttName].specials.dmg += damageDone;
+			
+			::ADV_STATS_LOGGER.info(sAttName + " dealt " + damageDone + " to a " + sVicName);
 		}
 
-		return
+		return;
 	}
 	
 	//
