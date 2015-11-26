@@ -345,14 +345,13 @@ function OnGameEvent_player_hurt(params)
 		if (sVicName == "Tank")
 		{
 			if (params.dmg_health > params.health) {
-				::ADV_STATS_LOGGER.debug("Tank damage error:", params);
 				damageDone = params.health;
 			} else {
 				damageDone = params.dmg_health;
 			}
 			
-			if (damageDone == 1) {
-				::ADV_STATS_LOGGER.debug("Tank damage error (should be impossible):", params);
+			if (damageDone == 1 && params.health != 1) {
+				::ADV_STATS_LOGGER.debug("Tank damage error:", params);
 				
 				return;
 			}
