@@ -7,7 +7,7 @@ class Logger
 	};
 	
 	// Prefix text for all logs
-	static log_prefix = "[ADV_STATS] ";
+	static log_prefix = "[ADV_STATS]";
 
 	function info(message)
 	{

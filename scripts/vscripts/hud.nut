@@ -1,6 +1,6 @@
 function createWelcomeHUD()
 {
-	::ADV_STATS_LOGGER.debug("HUD createWelcomeHUD");
+	::ADV_STATS_LOGGER.debug("createWelcomeHUD");
 
 	WelcomeHUD <-
 	{
@@ -15,7 +15,7 @@ function createWelcomeHUD()
 
 function clearWelcomeHUD()
 {
-	::ADV_STATS_LOGGER.debug("HUD clearWelcomeHUD");
+	::ADV_STATS_LOGGER.debug("clearWelcomeHUD");
 	
 	WelcomeHUD.Fields.version.dataval = "";
 	WelcomeHUD.Fields.version.flags = HUD_FLAG_NOBG | HUD_FLAG_NOTVISIBLE;
@@ -224,7 +224,7 @@ function compileStatsDMG()
  */
 function clearHUD()
 {
-	::ADV_STATS_LOGGER.debug("HUD clearHUD")
+	::ADV_STATS_LOGGER.debug("clearHUD")
 
 	if (::AdvStats.hud_visible == false || ::AdvStats.finale_win == true)
 		return;
@@ -249,7 +249,7 @@ function clearHUD()
  */
 function showHUD()
 {
-    ::ADV_STATS_LOGGER.debug("HUD showHUD");
+    ::ADV_STATS_LOGGER.debug("showHUD");
 
 	if (::AdvStats.hud_visible == true)
 		return;
@@ -269,7 +269,7 @@ function showHUD()
 
 function createHUD()
 {
-	::ADV_STATS_LOGGER.debug("HUD createHUD");
+	::ADV_STATS_LOGGER.debug("createHUD");
 
 	HUDPlace(HUD_LEFT_TOP, 0, 0.01, 0.3, 0.2)
 	HUDPlace(HUD_MID_TOP, 0.4, 0.01, 0.2, 0.2)

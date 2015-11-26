@@ -70,7 +70,7 @@ function AdvStats::isBot(sName)
  */
 function AdvStats::initPlayerCache(sPlayer)
 {
-	::ADV_STATS_LOGGER.debug("Coop InitPlayerCache");
+	::ADV_STATS_LOGGER.debug("initPlayerCache");
 
 	if (::AdvStats.cache.rawin(sPlayer))
 		return;
@@ -93,7 +93,7 @@ function AdvStats::initPlayerCache(sPlayer)
 		specials = {		// Special infected
 			dmg = 0,		// Damage dealt
 			kills = 0,		// Kills
-			kills_hs = 0, 	// Head shots
+			kills_hs = 0,	// Head shots
 		}
 	};
 }
@@ -103,7 +103,7 @@ function AdvStats::initPlayerCache(sPlayer)
  */
 function AdvStats::save()
 {
-	::ADV_STATS_LOGGER.debug("Coop Saving stats...");
+	::ADV_STATS_LOGGER.debug("Saving stats...");
 
 	if (::AdvStats.finale_win == true)
 	{
@@ -119,7 +119,7 @@ function AdvStats::save()
  */
 function AdvStats::load()
 {
-	::ADV_STATS_LOGGER.debug("Coop Loading stats...");
+	::ADV_STATS_LOGGER.debug("Loading stats...");
 	
 	RestoreTable("_adv_stats", ::AdvStats.cache);
 	if (::AdvStats.cache.len() == 0)
