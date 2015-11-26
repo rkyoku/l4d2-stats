@@ -344,17 +344,18 @@ function OnGameEvent_player_hurt(params)
 		local damageDone = 0;
 		if (sVicName == "Tank")
 		{
-			if (params.dmg_health > params.health) {
+			if (params.dmg_health > params.health)
 				damageDone = params.health;
-			} else {
+			else
 				damageDone = params.dmg_health;
-			}
 			
+			/* seems to count
 			if (damageDone == 1 && params.health != 1) {
 				::ADV_STATS_LOGGER.debug("Tank damage error:", params);
 				
 				return;
 			}
+			*/
 
 			::AdvStats.initPlayerCache(sAttName);
 			::AdvStats.cache[sAttName].dmg.tanks += damageDone;
