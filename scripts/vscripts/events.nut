@@ -141,19 +141,13 @@ function OnGameEvent_infected_hurt(params)
 	if (!::ADV_STATS_BOTS_DISPLAY && ::AdvStats.isBot(sAttName))
 		return;
 		
-	local damageDone = 0;
-			
-	if (params.amount > victim.GetHealth()) {
+	if (params.amount > victim.GetHealth())
 		::ADV_STATS_LOGGER.debug("Witch damage error: " + params.amount + " > " + victim.GetHealth());
-		damageDone = victim.GetHealth();
-	} else {
-		damageDone = params.amount;
-	}
 
 	::AdvStats.initPlayerCache(sAttName);
-	::AdvStats.cache[sAttName].dmg.witches += damageDone;
+	::AdvStats.cache[sAttName].dmg.witches += params.amount;
 	
-	::ADV_STATS_LOGGER.info(sAttName + " dealt " + damageDone + " to a Witch");
+	::ADV_STATS_LOGGER.info(sAttName + " dealt " + params.amount + " to a Witch");
 }
 
 /**
