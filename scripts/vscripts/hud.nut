@@ -29,38 +29,6 @@ function subPseudo(sPseudo)
 	return sPseudo.slice(0, 8);
 }
 
-function sortTable(aTable, bMinFirst = true)
-{
-	local sMax = null;
-	local sIdx = null;
-	local iVal = null;
-	local iMax = null;
-	local aSorted = [];
-	local aAdded = {};
-	local iNb = aTable.len();
-	local i;
-	
-	for (i = 0; i < iNb; i += 1)
-	{
-		iMax = null;
-		sMax = null;
-		foreach (sIdx, iVal in aTable)
-		{
-			if (aAdded.rawin(sIdx))
-				continue;
-			if (iMax == null || (!bMinFirst && iVal > iMax) || (bMinFirst && iVal < iMax))
-			{
-				sMax = sIdx;
-				iMax = iVal;
-			}
-		}
-		aAdded[sMax] <- 1;
-		aSorted.append({key = sMax, value = iMax});
-	}
-	
-	return aSorted;
-}
-
 /**
  * Sum the items inside the table
  */
@@ -75,148 +43,116 @@ function sumTable(aTable)
 }
 
 /**
- * Sum the damage done
+ * asc sort
  */
-function sortForFFDmg()
+function ascComparison(a, b)
 {
-	local aStats = {}, sPlayer = null, aData = null;
-	
-	foreach (sPlayer, aData in ::AdvStats.cache)
-		aStats[sPlayer] <- sumTable(aData.ff.dmg);
-	
-	return sortTable(aStats, false);
+	if (a.value > b.value)
+		return 1;
+	else if(a.value < b.value)
+		return -1;
+
+	return 0;
 }
 
 /**
- * Sum the damage dealt to Special Infected
+ * desc sort
  */
-function sortForSIDmg()
+function descComparison(a, b)
 {
-	local aStats = {}, sPlayer = null, aData = null;
-	
-	foreach (sPlayer, aData in ::AdvStats.cache)
-		aStats[sPlayer] <- aData.specials.dmg;
-	
-	return sortTable(aStats, false);
+	if (a.value < b.value)
+		return 1;
+	else if(a.value > b.value)
+		return -1;
+
+	return 0;
 }
 
 /**
- * Sum the damage dealt to Common Infected
- */
-function sortForCIHits()
-{
-	local aStats = {}, sPlayer = null, aData = null;
-
-	foreach (sPlayer, aData in ::AdvStats.cache)
-		aStats[sPlayer] <- aData.hits.infected;
-
-	return sortTable(aStats, true);
-}
-
-/**
- * Sum the damage dealt to Tanks and Witches
- */
-function sortForDmgDealt()
-{
-	local aStats = {}, sPlayer = null, aData = null;
-
-	foreach (sPlayer, aData in ::AdvStats.cache)
-		aStats[sPlayer] <- aData.dmg.tanks + aData.dmg.witches;
-
-	return sortTable(aStats, false);
-}
-
-/**
- * Compiling FF damage stats
+ * Compiling Friendly Fire stats
  */
 function compileStatsFF()
 {
-	local sRes = "";
-	local aTmp = {}, aFFDMG = {};
-	local iIdx = 0;
-	local sPlayer = null;
+	local result = "", aStats = [], sPlayer = null, aData = null;
 	
-	aFFDMG = sortForFFDmg();
-	foreach (iIdx, aTmp in aFFDMG)
-	{
-		sPlayer = aTmp.key;
-		sRes += subPseudo(sPlayer) + ": " + aTmp.value
-				+ ", " + sumTable(::AdvStats.cache[sPlayer].ff.incap)
-				+ ", " + sumTable(::AdvStats.cache[sPlayer].ff.tk)
+	foreach (sPlayer, aData in ::AdvStats.cache)
+		aStats.append({ name = sPlayer, value = sumTable(aData.ff.dmg) });
+		
+	aStats.sort(ascComparison);
+	
+	foreach (aStat in aStats)
+		result += subPseudo(aStat.name) + ": "
+				+ aStat.value
+				+ ", " + sumTable(::AdvStats.cache[aStat.name].ff.incap)
+				+ ", " + sumTable(::AdvStats.cache[aStat.name].ff.tk)
 				+ "\n";
-	}
-	
-	return "FF (Dmg, Incap, TK)\n" + sRes;
+
+	return "FF (Dmg, Incap, TK)\n" + result;
 }
 
 /**
- * Compiling special infected stats
+ * Compiling Special Infected stats
  */
 function compileStatsSI()
 {
-	local sRes = "";
-	local aTmp = {}, aTable = {};
-	local iIdx = 0;
-	local sPlayer = null;
+	local result = "", aStats = [], sPlayer = null, aData = null;
 	
-	aTable = sortForSIDmg();
-	foreach (iIdx, aTmp in aTable)
-	{
-		sPlayer = aTmp.key;
-		sRes += subPseudo(sPlayer) + ": "
-				+ ::AdvStats.cache[sPlayer].specials.kills
-				+ ", " + ::AdvStats.cache[sPlayer].specials.kills_hs
-				+ ", " + ::AdvStats.cache[sPlayer].specials.dmg
+	foreach (sPlayer, aData in ::AdvStats.cache)
+		aStats.append({ name = sPlayer, value = aData.specials.dmg });
+	
+	aStats.sort(descComparison);
+		
+	foreach (aStat in aStats)
+		result += subPseudo(aStat.name) + ": "
+				+ ::AdvStats.cache[aStat.name].specials.kills
+				+ ", " + ::AdvStats.cache[aStat.name].specials.kills_hs
+				+ ", " + aStat.value
 				+ "\n";
-	}
 
-	return "SI (Kills, HS, Dmg)\n" + sRes;
+	return "SI (Kills, HS, Dmg)\n" + result;
 }
 
 /**
- * Compiling common infected stats
+ * Compiling Common Infected stats
  */
 function compileStatsCI()
 {
-	local sRes = "";
-	local aTmp = {}, aTable = {};
-	local iIdx = 0;
-	local sPlayer = null;
+	local result = "", aStats = [], sPlayer = null, aData = null;
+		  
+	foreach (sPlayer, aData in ::AdvStats.cache)
+		aStats.append({ name = sPlayer, value = aData.hits.infected });
 	
-	aTable = sortForCIHits();
-	foreach (iIdx, aTmp in aTable)
-	{
-		sPlayer = aTmp.key;
-		sRes += subPseudo(sPlayer) + ": "
-				+ aTmp.value
-				+ ", " + ::AdvStats.cache[sPlayer].hits.si_hits
-				+ ", " + ::AdvStats.cache[sPlayer].hits.si_dmg
-				+  "\n";
-	}
+	aStats.sort(ascComparison);
 
-	return "Hits (Zs, SI) / Dmg (SI)\n" + sRes;
+	foreach (aStat in aStats)
+		result += subPseudo(aStat.name) + ": "
+				+ aStat.value
+				+ ", " + ::AdvStats.cache[aStat.name].hits.si_hits
+				+ ", " + ::AdvStats.cache[aStat.name].hits.si_dmg
+				+  "\n";
+
+	return "Hits (Zs, SI) / Dmg (SI)\n" + result;
 }
 
 /**
- * Compiling damage received
+ * Compiling Tanks and Witches damage dealt
  */
 function compileStatsDMG()
 {
-	local sRes = "";
-	local aTable = {}, aTmp = {};
-	local iIdx = 0, sPlayer = null;
+	local result = "", aStats = [], sPlayer = null, aData = null;
 	
-	aTable = sortForDmgDealt();
-	foreach (iIdx, aTmp in aTable)
-	{
-		sPlayer = aTmp.key;
-		sRes += subPseudo(sPlayer) + ": "
-				+ ::AdvStats.cache[sPlayer].dmg.tanks
-				+ ", " + ::AdvStats.cache[sPlayer].dmg.witches
+	foreach (sPlayer, aData in ::AdvStats.cache)
+		aStats.append({ name = sPlayer, value =  aData.dmg.tanks + aData.dmg.witches });
+	
+	aStats.sort(descComparison);
+	
+	foreach (aStat in aStats)
+		result += subPseudo(aStat.name) + ": "
+				+ ::AdvStats.cache[aStat.name].dmg.tanks
+				+ ", " + ::AdvStats.cache[aStat.name].dmg.witches
 				+ "\n";
-	}
 	
-	return "Dmg (Tanks, Witches)\n" + sRes;
+	return "Dmg (Tanks, Witches)\n" + result;
 }
 
 /**
@@ -224,7 +160,7 @@ function compileStatsDMG()
  */
 function clearHUD()
 {
-	::ADV_STATS_LOGGER.debug("clearHUD")
+	::ADV_STATS_LOGGER.debug("clearHUD");
 
 	if (::AdvStats.hud_visible == false || ::AdvStats.finale_win == true)
 		return;
