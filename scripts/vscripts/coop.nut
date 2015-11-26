@@ -9,7 +9,7 @@ printl("################################################")
  */
 ::ADV_STATS_LOG_LEVEL <- 2 				// 0 = no debug, 1 = info, 2 = debug
 ::ADV_STATS_DUMP <- true 				// Dump of data at start/end of map
-::ADV_STATS_BOTS_DISPLAY <- false 		// Activate the display of the bots' stats
+::ADV_STATS_BOTS_DISPLAY <- true 		// Activate the display of the bots' stats
 ::ADV_STATS_FF_BOTS_ENABLED <- true 	// Activate FF done to bots
 
 IncludeScript("logger.nut");
@@ -17,7 +17,7 @@ IncludeScript("hud.nut");
 IncludeScript("events.nut");
 
 ::ADV_STATS_LOGGER <- Logger();
-::AdvStats <- {cache = {}, hud_visible = false, finale_win = false};
+::AdvStats <- {cache = {}, hud_visible = false, finale_win = false, welcome_message_displayed = false};
 ::ADV_STATS_BOTS <- ["Coach", "Ellis", "Rochelle", "Nick", "Louis", "Bill", "Francis", "Zoey"];
 ::ADV_STATS_SI <- [
 	"Boomer", "(1)Boomer", "(2)Boomer", "(3)Boomer",
@@ -27,6 +27,8 @@ IncludeScript("events.nut");
 	"Smoker", "(1)Smoker", "(2)Smoker", "(3)Smoker",
 	"Spitter", "(1)Spitter", "(2)Spitter", "(3)Spitter",
 ];
+
+createHUD();
 
 /**
  * Stats cache debug
@@ -97,7 +99,7 @@ function AdvStats::initPlayerCache(sPlayer)
 }
 
 /**
- * Save data between maps
+ * Save stats data between maps
  */
 function AdvStats::save()
 {
@@ -109,11 +111,11 @@ function AdvStats::save()
 		::AdvStats.cache = {};
 	}
 
-	SaveTable("_adv_stats", ::AdvStats.cache)
+	SaveTable("_adv_stats", ::AdvStats.cache);
 }
 
 /**
- * Load data after a map load
+ * Load stats data after a map load
  */
 function AdvStats::load()
 {

@@ -1,4 +1,29 @@
 /**
+ * Called when a player entered the start area (first map)
+ */
+function OnGameEvent_player_entered_start_area(params)
+{
+    ::ADV_STATS_LOGGER.debug("Event player_entered_start_area");
+
+	if (::AdvStats.welcome_message_displayed)
+		return;
+
+	createWelcomeHUD();
+	::AdvStats.welcome_message_displayed = true;
+}
+
+/**
+ * Called when a player left the start area (first map)
+ */
+function OnGameEvent_player_left_start_area(params)
+{
+    ::ADV_STATS_LOGGER.debug("Event player_left_start_area");
+	
+	if (Director.HasAnySurvivorLeftSafeArea())
+		clearWelcomeHUD();
+}
+
+/**
  * Called when a player leaves a checkpoint
  *
  * NOTA: this function seems to be called when survivors spawn inside shelter,

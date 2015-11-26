@@ -1,3 +1,26 @@
+function createWelcomeHUD()
+{
+	::ADV_STATS_LOGGER.debug("HUD createWelcomeHUD");
+
+	WelcomeHUD <-
+	{
+	   Fields = 
+	   {
+		  version = {slot = HUD_LEFT_TOP, dataval = "L4D2 Advanced Stats\nversion 0.3", name = "version", flags = HUD_FLAG_NOBG | HUD_FLAG_ALIGN_LEFT}
+	   }
+	}
+
+	HUDSetLayout(WelcomeHUD);
+}
+
+function clearWelcomeHUD()
+{
+	::ADV_STATS_LOGGER.debug("HUD clearWelcomeHUD");
+	
+	WelcomeHUD.Fields.version.dataval = "";
+	WelcomeHUD.Fields.version.flags = HUD_FLAG_NOBG | HUD_FLAG_NOTVISIBLE;
+}
+
 function subPseudo(sPseudo)
 {
 	if (sPseudo.len() < 9)
@@ -123,7 +146,7 @@ function compileStatsFF()
 				+ "\n";
 	}
 	
-	return sRes == "" ? "No Stats Yet" : "FF (Dmg, Incap, TK)\n" + sRes;
+	return "FF (Dmg, Incap, TK)\n" + sRes;
 }
 
 /**
@@ -147,7 +170,7 @@ function compileStatsSI()
 				+ "\n";
 	}
 
-	return sRes == "" ? "No Stats Yet" : "SI (Kills, HS, Dmg)\n" + sRes;
+	return "SI (Kills, HS, Dmg)\n" + sRes;
 }
 
 /**
@@ -171,7 +194,7 @@ function compileStatsCI()
 				+  "\n";
 	}
 
-	return sRes == "" ? "No Stats Yet" : "Hits (Zs, SI) / Dmg (SI)\n" + sRes;
+	return "Hits (Zs, SI) / Dmg (SI)\n" + sRes;
 }
 
 /**
@@ -193,7 +216,7 @@ function compileStatsDMG()
 				+ "\n";
 	}
 	
-	return sRes == "" ? "No Stats Yet" : "Dmg (Tanks, Witches)\n" + sRes;
+	return "Dmg (Tanks, Witches)\n" + sRes;
 }
 
 /**
@@ -219,8 +242,6 @@ function clearHUD()
 	advStatsHUD.Fields.si.flags = HUD_FLAG_NOBG | HUD_FLAG_NOTVISIBLE;
 	
 	::AdvStats.hud_visible = false;
-	
-	::ADV_STATS_LOGGER.info("HUD cleared");
 }
 
 /**
@@ -244,24 +265,27 @@ function showHUD()
 	advStatsHUD.Fields.si.flags = HUD_FLAG_NOBG;
 
 	::AdvStats.hud_visible = true;
-	
-	::ADV_STATS_LOGGER.info("HUD displayed");
 }
 
-HUDPlace(HUD_LEFT_TOP, 0, 0.01, 0.3, 0.2)
-HUDPlace(HUD_MID_TOP, 0.4, 0.01, 0.2, 0.2)
-HUDPlace(HUD_RIGHT_TOP, 0.7, 0.01, 0.3, 0.2)
-HUDPlace(HUD_FAR_LEFT, 0, 0.4, 0.3, 0.2)
-
-advStatsHUD <-
+function createHUD()
 {
-   Fields = 
-   {
-	  ff = {slot = HUD_LEFT_TOP, dataval = "", name = "ff", flags = HUD_FLAG_NOBG},
-	  ci = {slot = HUD_MID_TOP, dataval = "", name = "ci", flags = HUD_FLAG_NOBG},
-	  dmg = {slot = HUD_RIGHT_TOP, dataval = "", name = "dmg", flags = HUD_FLAG_NOBG},
-	  si = {slot = HUD_FAR_LEFT, dataval = "", name = "si", flags = HUD_FLAG_NOBG}
-   }
-}
+	::ADV_STATS_LOGGER.debug("HUD createHUD");
 
-HUDSetLayout(advStatsHUD)
+	HUDPlace(HUD_LEFT_TOP, 0, 0.01, 0.3, 0.2)
+	HUDPlace(HUD_MID_TOP, 0.4, 0.01, 0.2, 0.2)
+	HUDPlace(HUD_RIGHT_TOP, 0.7, 0.01, 0.3, 0.2)
+	HUDPlace(HUD_FAR_LEFT, 0, 0.4, 0.3, 0.2)
+
+	advStatsHUD <-
+	{
+	   Fields = 
+	   {
+		  ff = {slot = HUD_LEFT_TOP, dataval = "", name = "ff", flags = HUD_FLAG_NOBG},
+		  ci = {slot = HUD_MID_TOP, dataval = "", name = "ci", flags = HUD_FLAG_NOBG},
+		  dmg = {slot = HUD_RIGHT_TOP, dataval = "", name = "dmg", flags = HUD_FLAG_NOBG},
+		  si = {slot = HUD_FAR_LEFT, dataval = "", name = "si", flags = HUD_FLAG_NOBG}
+	   }
+	}
+
+	HUDSetLayout(advStatsHUD);
+}
