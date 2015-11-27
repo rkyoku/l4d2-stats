@@ -17,6 +17,9 @@ function clearWelcomeHUD()
 {
 	::ADV_STATS_LOGGER.debug("clearWelcomeHUD");
 	
+	if (!WelcomeHUD)
+		return;
+	
 	WelcomeHUD.Fields.version.dataval = "";
 	WelcomeHUD.Fields.version.flags = HUD_FLAG_NOBG | HUD_FLAG_NOTVISIBLE;
 }

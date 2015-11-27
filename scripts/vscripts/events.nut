@@ -37,19 +37,20 @@ function OnGameEvent_player_left_checkpoint(params)
 		clearHUD();
 }
 
-function OnGameEvent_finale_vehicle_ready(params)
+function OnGameEvent_finale_vehicle_leaving(params)
 {
-	::ADV_STATS_LOGGER.debug("Event finale_vehicle_ready");
+	::ADV_STATS_LOGGER.debug("Event finale_vehicle_leaving");
 	
 	::AdvStats.finale_win = true;
+	::ADV_STATS_LOGGER.info("Finale win!!");
+	
 	showHUD();
 }
 
 function OnGameEvent_finale_escape_start(params)
 {
 	::ADV_STATS_LOGGER.debug("Event finale_escape_start");
-	
-	::AdvStats.finale_win = true;
+
 	showHUD();
 }
 
@@ -58,6 +59,7 @@ function OnGameEvent_finale_win(params)
 	::ADV_STATS_LOGGER.debug("Event finale_win");
 	
 	::AdvStats.finale_win = true;
+	::ADV_STATS_LOGGER.info("Finale win!!");
 	showHUD();
 
 	AdvStatsDebug()
@@ -305,7 +307,7 @@ function OnGameEvent_player_hurt(params)
 	local sAttName = attacker.GetPlayerName();
 	
 	// Damage dealt by special infected. Beware: special infected are also Players
-	if (!::AdvStats.isSpecialInfected(sVicName) && ::AdvStats.isSpecialInfected(sAttName) && params.dmg_health != 0 && !victim.IsIncapacitated())
+	if (!::AdvStats.isSpecialInfected(sVicName) && ::AdvStats.isSpecialInfected(sAttName) && params.dmg_health != 0 && !victim.IsIncapacitated() && sVicName != "tank")
 	{
 		// Bots
 		if (!::ADV_STATS_BOTS_DISPLAY && ::AdvStats.isBot(sVicName))
