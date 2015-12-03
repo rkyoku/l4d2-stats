@@ -6,7 +6,7 @@ function createWelcomeHUD()
 	{
 	   Fields = 
 	   {
-		  version = {slot = HUD_LEFT_TOP, dataval = "L4D2 Advanced Stats\nversion 0.3", name = "version", flags = HUD_FLAG_NOBG | HUD_FLAG_ALIGN_LEFT}
+		  version = {slot = HUD_LEFT_TOP, dataval = "L4D2 Advanced Stats\nversion 0.4", name = "version", flags = HUD_FLAG_NOBG | HUD_FLAG_ALIGN_LEFT}
 	   }
 	}
 
@@ -107,12 +107,12 @@ function compileStatsSI()
 		
 	foreach (aStat in aStats)
 		result += subPseudo(aStat.name) + ": "
-				+ ::AdvStats.cache[aStat.name].specials.kills
+				+ aStat.value
+				+ ", " + ::AdvStats.cache[aStat.name].specials.kills
 				+ ", " + ::AdvStats.cache[aStat.name].specials.kills_hs
-				+ ", " + aStat.value
 				+ "\n";
 
-	return "SI (Kills, HS, Dmg)\n" + result;
+	return "SI (Dmg, Kills, HS)\n" + result;
 }
 
 /**
@@ -130,11 +130,10 @@ function compileStatsCI()
 	foreach (aStat in aStats)
 		result += subPseudo(aStat.name) + ": "
 				+ aStat.value
-				+ ", " + ::AdvStats.cache[aStat.name].hits.si_hits
 				+ ", " + ::AdvStats.cache[aStat.name].hits.si_dmg
 				+  "\n";
 
-	return "Hits (Zs, SI) / Dmg (SI)\n" + result;
+	return "Hits CI, Damage SI\n" + result;
 }
 
 /**

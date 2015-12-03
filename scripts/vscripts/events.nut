@@ -136,8 +136,6 @@ function OnGameEvent_infected_hurt(params)
 		return
 	
 	local sAttName = attacker.GetPlayerName()
-
-	::ADV_STATS_LOGGER.debug("Witch Hurt");
 	
 	// Bots
 	if (!::ADV_STATS_BOTS_DISPLAY && ::AdvStats.isBot(sAttName))
@@ -344,6 +342,7 @@ function OnGameEvent_player_hurt(params)
 	if (!victim.IsSurvivor())
 	{
 		local damageDone = 0;
+
 		if (sVicName == "Tank")
 		{
 			if (params.dmg_health > params.health)
