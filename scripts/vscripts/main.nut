@@ -28,7 +28,7 @@ IncludeScript("events.nut");
 	"Spitter", "(1)Spitter", "(2)Spitter", "(3)Spitter",
 ];
 
-createHUD();
+createStatsHUD();
 
 /**
  * Stats cache debug

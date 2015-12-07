@@ -1,12 +1,14 @@
 function createWelcomeHUD()
 {
 	::ADV_STATS_LOGGER.debug("createWelcomeHUD");
+	
+	HUDPlace(HUD_LEFT_TOP, 0, 0, 0.3, 0.1);
 
 	WelcomeHUD <-
 	{
 	   Fields = 
 	   {
-		  version = {slot = HUD_LEFT_TOP, dataval = "L4D2 Advanced Stats\nversion 0.4", name = "version", flags = HUD_FLAG_NOBG | HUD_FLAG_ALIGN_LEFT}
+			version = {slot = HUD_LEFT_TOP, dataval = "L4D2 Advanced Stats\nversion 0.4", name = "version", flags = HUD_FLAG_NOBG | HUD_FLAG_ALIGN_LEFT}
 	   }
 	}
 
@@ -154,15 +156,15 @@ function compileStatsDMG()
 				+ ", " + ::AdvStats.cache[aStat.name].dmg.witches
 				+ "\n";
 	
-	return "Dmg (Tanks, Witches)\n" + result;
+	return "Damage (Tanks, Witches)\n" + result;
 }
 
 /**
- * Clear the HUD
+ * Clear the stats HUD
  */
-function clearHUD()
+function clearStatsHUD()
 {
-	::ADV_STATS_LOGGER.debug("clearHUD");
+	::ADV_STATS_LOGGER.debug("clearStatsHUD");
 
 	if (::AdvStats.hud_visible == false || ::AdvStats.finale_win == true)
 		return;
@@ -183,11 +185,11 @@ function clearHUD()
 }
 
 /**
- * Show the HUD
+ * Show the Stats HUD
  */
-function showHUD()
+function showStatsHUD()
 {
-    ::ADV_STATS_LOGGER.debug("showHUD");
+    ::ADV_STATS_LOGGER.debug("showStatsHUD");
 
 	if (::AdvStats.hud_visible == true)
 		return;
@@ -205,23 +207,23 @@ function showHUD()
 	::AdvStats.hud_visible = true;
 }
 
-function createHUD()
+function createStatsHUD()
 {
-	::ADV_STATS_LOGGER.debug("createHUD");
+	::ADV_STATS_LOGGER.debug("createStatsHUD");
 
-	HUDPlace(HUD_LEFT_TOP, 0, 0.01, 0.3, 0.2)
-	HUDPlace(HUD_MID_TOP, 0.4, 0.01, 0.2, 0.2)
-	HUDPlace(HUD_RIGHT_TOP, 0.7, 0.01, 0.3, 0.2)
-	HUDPlace(HUD_FAR_LEFT, 0, 0.4, 0.3, 0.2)
+	HUDPlace(HUD_LEFT_TOP, 0, 0.1, 0.3, 0.2);
+	HUDPlace(HUD_MID_TOP, 0.3, 0.1, 0.4, 0.2);
+	HUDPlace(HUD_RIGHT_TOP, 0.7, 0.1, 0.3, 0.2);
+	HUDPlace(HUD_LEFT_BOT, 0, 0.4, 0.3, 0.2);
 
 	advStatsHUD <-
 	{
 	   Fields = 
 	   {
-		  ff = {slot = HUD_LEFT_TOP, dataval = "", name = "ff", flags = HUD_FLAG_NOBG},
-		  ci = {slot = HUD_MID_TOP, dataval = "", name = "ci", flags = HUD_FLAG_NOBG},
-		  dmg = {slot = HUD_RIGHT_TOP, dataval = "", name = "dmg", flags = HUD_FLAG_NOBG},
-		  si = {slot = HUD_FAR_LEFT, dataval = "", name = "si", flags = HUD_FLAG_NOBG}
+			ff = {slot = HUD_LEFT_TOP, dataval = "", name = "ff", flags = HUD_FLAG_NOBG},
+			si = {slot = HUD_MID_TOP, dataval = "", name = "si", flags = HUD_FLAG_NOBG},
+			dmg = {slot = HUD_RIGHT_TOP, dataval = "", name = "dmg", flags = HUD_FLAG_NOBG},
+			ci = {slot = HUD_LEFT_BOT, dataval = "", name = "ci", flags = HUD_FLAG_NOBG},
 	   }
 	}
 

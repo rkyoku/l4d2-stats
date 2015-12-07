@@ -34,7 +34,7 @@ function OnGameEvent_player_left_checkpoint(params)
 	::ADV_STATS_LOGGER.debug("Event player_left_checkpoint");
 
 	if (Director.HasAnySurvivorLeftSafeArea())
-		clearHUD();
+		clearStatsHUD();
 }
 
 function OnGameEvent_finale_vehicle_leaving(params)
@@ -42,16 +42,16 @@ function OnGameEvent_finale_vehicle_leaving(params)
 	::ADV_STATS_LOGGER.debug("Event finale_vehicle_leaving");
 	
 	::AdvStats.finale_win = true;
-	::ADV_STATS_LOGGER.info("Finale win!!");
+	::ADV_STATS_LOGGER.info("Finale win!");
 	
-	showHUD();
+	showStatsHUD();
 }
 
 function OnGameEvent_finale_escape_start(params)
 {
 	::ADV_STATS_LOGGER.debug("Event finale_escape_start");
 
-	showHUD();
+	showStatsHUD();
 }
 
 function OnGameEvent_finale_win(params)
@@ -59,8 +59,8 @@ function OnGameEvent_finale_win(params)
 	::ADV_STATS_LOGGER.debug("Event finale_win");
 	
 	::AdvStats.finale_win = true;
-	::ADV_STATS_LOGGER.info("Finale win!!");
-	showHUD();
+	::ADV_STATS_LOGGER.info("Finale win!");
+	showStatsHUD();
 
 	AdvStatsDebug()
 }
@@ -73,7 +73,7 @@ function OnGameEvent_round_start_post_nav(params)
 	::ADV_STATS_LOGGER.debug("Event round_start_post_nav");
 	
 	::AdvStats.load()
-	showHUD()
+	showStatsHUD()
 	
 	AdvStatsDebug()
 }
