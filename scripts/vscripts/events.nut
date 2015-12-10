@@ -41,16 +41,6 @@ function OnGameEvent_finale_vehicle_leaving(params)
 {
 	::ADV_STATS_LOGGER.debug("Event finale_vehicle_leaving");
 	
-	::AdvStats.finale_win = true;
-	::ADV_STATS_LOGGER.info("Finale win!");
-	
-	showStatsHUD();
-}
-
-function OnGameEvent_finale_escape_start(params)
-{
-	::ADV_STATS_LOGGER.debug("Event finale_escape_start");
-
 	showStatsHUD();
 }
 
