@@ -49,10 +49,11 @@ function OnGameEvent_finale_win(params)
 	::ADV_STATS_LOGGER.debug("Event finale_win");
 	
 	::AdvStats.finale_win = true;
-	::ADV_STATS_LOGGER.info("Finale win!");
 	showStatsHUD();
 
-	AdvStatsDebug()
+	AdvStatsDebug();
+	
+	::ADV_STATS_LOGGER.info("Finale win!");
 }
 
 /**
@@ -62,10 +63,10 @@ function OnGameEvent_round_start_post_nav(params)
 {
 	::ADV_STATS_LOGGER.debug("Event round_start_post_nav");
 	
-	::AdvStats.load()
-	showStatsHUD()
+	::AdvStats.load();
+	showStatsHUD();
 	
-	AdvStatsDebug()
+	AdvStatsDebug();
 }
 
 /**
@@ -75,9 +76,9 @@ function OnGameEvent_map_transition(params)
 {
 	::ADV_STATS_LOGGER.debug("Event map_transition");
 	
-	::AdvStats.save()
+	::AdvStats.save();
 	
-	AdvStatsDebug()
+	AdvStatsDebug();
 }
 
 /**
@@ -87,9 +88,9 @@ function OnGameEvent_mission_lost(params)
 {
 	::ADV_STATS_LOGGER.debug("Event mission_lost");
 	
-	::AdvStats.save()
+	::AdvStats.save();
 	
-	AdvStatsDebug()
+	AdvStatsDebug();
 }
 
 /**
@@ -99,9 +100,9 @@ function OnGameEvent_round_end(params)
 {
 	::ADV_STATS_LOGGER.debug("Event round_end");
 	
-	::AdvStats.save()
+	::AdvStats.save();
 	
-	AdvStatsDebug()
+	AdvStatsDebug();
 }
 
 /**
@@ -313,6 +314,7 @@ function OnGameEvent_player_hurt(params)
 	//
 	// From now on we only take care with damage dealt by survivors
 	//
+
 	if (!attacker.IsSurvivor())
 	{
 		::ADV_STATS_LOGGER.debug("Attacker is not a survivor");
@@ -329,42 +331,23 @@ function OnGameEvent_player_hurt(params)
 	//
 	// Damage to tanks and special infected
 	//
+
 	if (!victim.IsSurvivor())
 	{
 		local damageDone = 0;
+		if (params.dmg_health > params.health)
+			damageDone = params.health;
+		else
+			damageDone = params.dmg_health;
+		
+		::AdvStats.initPlayerCache(sAttName);
 
 		if (sVicName == "Tank")
-		{
-			if (params.dmg_health > params.health)
-				damageDone = params.health;
-			else
-				damageDone = params.dmg_health;
-			
-			/* seems to count
-			if (damageDone == 1 && params.health != 1) {
-				::ADV_STATS_LOGGER.debug("Tank damage error:", params);
-				
-				return;
-			}
-			*/
-
-			::AdvStats.initPlayerCache(sAttName);
 			::AdvStats.cache[sAttName].dmg.tanks += damageDone;
-			
-			::ADV_STATS_LOGGER.info(sAttName + " dealt " + damageDone + " to a Tank");
-		}
 		else if (::AdvStats.isSpecialInfected(sVicName))
-		{
-			if (params.dmg_health > params.health) {
-				damageDone = params.health;
-			} else {
-				damageDone = params.dmg_health;
-			}
-			::AdvStats.initPlayerCache(sAttName);
 			::AdvStats.cache[sAttName].specials.dmg += damageDone;
-			
-			::ADV_STATS_LOGGER.info(sAttName + " dealt " + damageDone + " to a " + sVicName);
-		}
+
+		::ADV_STATS_LOGGER.info(sAttName + " dealt " + damageDone + " to a " + sVicName);
 
 		return;
 	}
