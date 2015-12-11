@@ -8,7 +8,7 @@ function createWelcomeHUD()
 	{
 	   Fields = 
 		{
-			version = {slot = HUD_LEFT_TOP, dataval = "Advanced Stats\nversion 0.5", name = "version", flags = HUD_FLAG_NOBG | HUD_FLAG_ALIGN_LEFT}
+			version = {slot = HUD_LEFT_TOP, dataval = "L4D2 Advanced Stats\nversion 0.5", name = "version", flags = HUD_FLAG_NOBG | HUD_FLAG_ALIGN_LEFT}
 		}
 	}
 
@@ -166,7 +166,7 @@ function clearStatsHUD()
 {
 	::ADV_STATS_LOGGER.debug("clearStatsHUD");
 
-	if (::AdvStats.hud_visible == false || ::AdvStats.finale_win == true)
+	if (::AdvStats.hud_visible == false || ::AdvStats.finale_win == true || ::AdvStats.endgame_hud_triggered == true)
 		return;
 
 	local sField, aData;
@@ -211,10 +211,10 @@ function createStatsHUD()
 {
 	::ADV_STATS_LOGGER.debug("createStatsHUD");
 
-	HUDPlace(HUD_LEFT_TOP, 0, 0.1, 0.3, 0.2);
-	HUDPlace(HUD_MID_TOP, 0.3, 0.1, 0.4, 0.2);
-	HUDPlace(HUD_RIGHT_TOP, 0.7, 0.1, 0.3, 0.2);
-	HUDPlace(HUD_LEFT_BOT, 0, 0.4, 0.3, 0.2);
+	HUDPlace(HUD_LEFT_TOP, 0, 0, 0.3, 0.2);
+	HUDPlace(HUD_MID_TOP, 0.3, 0, 0.4, 0.2);
+	HUDPlace(HUD_RIGHT_TOP, 0.7, 0, 0.3, 0.2);
+	HUDPlace(HUD_LEFT_BOT, 0, 0.3, 0.3, 0.2);
 
 	advStatsHUD <-
 	{

@@ -42,6 +42,8 @@ git clone git@github.com:RenaudParis/l4d2-stats.git
 Change these settings at your own convenience:
 
 ```squirrel
+// main.nut
+
 ::ADV_STATS_BOTS_DISPLAY <- true 		// Activate the display of the bots' stats
 ::ADV_STATS_FF_BOTS_ENABLED <- true 	// Activate FF done to bots
 ```

@@ -59,6 +59,7 @@ function OnGameEvent_finale_vehicle_leaving(params)
 {
 	::ADV_STATS_LOGGER.debug("Event finale_vehicle_leaving");
 	
+	::AdvStats.endgame_hud_triggered = true;
 	showStatsHUD();
 }
 
@@ -67,6 +68,7 @@ function OnGameEvent_finale_win(params)
 	::ADV_STATS_LOGGER.debug("Event finale_win");
 	
 	::AdvStats.finale_win = true;
+	::AdvStats.endgame_hud_triggered = true;
 	showStatsHUD();
 
 	AdvStatsDebug();

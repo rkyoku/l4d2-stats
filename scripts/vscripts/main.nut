@@ -2,10 +2,10 @@
  * Plugin settings
  * These variables can be modified at your own convenience
  */
-::ADV_STATS_LOG_LEVEL <- 2 				// 0 = no debug, 1 = info level, 2 = debug level
-::ADV_STATS_DUMP <- true 				// Dump of stats data at start/end of map
 ::ADV_STATS_BOTS_DISPLAY <- true 		// Activate the display of the bots' stats
 ::ADV_STATS_FF_BOTS_ENABLED <- true 	// Activate FF done to bots
+::ADV_STATS_LOG_LEVEL <- 2 				// 0 = no debug, 1 = info level, 2 = debug level
+::ADV_STATS_DUMP <- true 				// Dump of stats data at start/end of map
 
 printl("################################################")
 printl("###                                          ###")
@@ -21,6 +21,7 @@ IncludeScript("events.nut");
 ::AdvStats <- {
 	cache = {},
 	hud_visible = false,
+	endgame_hud_triggered = false,
 	finale_win = false,
 	welcome_hud_displayed = false,
 	current_map = null
