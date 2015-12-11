@@ -1,15 +1,33 @@
 /**
+ * Called when a player spawns for the first time 
+ * It concerns players, but also special infected, bots...
+ *
+ * NOTA: At a map transition, the event is fired for the first time when a
+ * special infected spawns
+ */
+function OnGameEvent_player_first_spawn(params)
+{
+	::ADV_STATS_LOGGER.debug("Event player_first_spawn");
+	
+	if (::AdvStats.current_map)
+		return;
+	
+	::AdvStats.current_map = params.map_name;
+	::ADV_STATS_LOGGER.info("Map changed to " + ::AdvStats.current_map);
+}
+
+/**
  * Called when a player entered the start area (first map)
  */
 function OnGameEvent_player_entered_start_area(params)
 {
     ::ADV_STATS_LOGGER.debug("Event player_entered_start_area");
 
-	if (::AdvStats.welcome_message_displayed)
+	if (::AdvStats.welcome_hud_displayed)
 		return;
 
 	createWelcomeHUD();
-	::AdvStats.welcome_message_displayed = true;
+	::AdvStats.welcome_hud_displayed = true;
 }
 
 /**
@@ -131,6 +149,8 @@ function OnGameEvent_infected_hurt(params)
 	// Bots
 	if (!::ADV_STATS_BOTS_DISPLAY && ::AdvStats.isBot(sAttName))
 		return;
+	if (::AdvStats.current_map == ::ADV_STATS_MAP_PASSING_PORT && ::ADV_STATS_BOTS.L4D1.find(sAttName) != null)
+		return;
 		
 	if (params.amount > victim.GetHealth())
 		::ADV_STATS_LOGGER.debug("Witch damage error: " + params.amount + " > " + victim.GetHealth());
@@ -181,6 +201,8 @@ function OnGameEvent_player_death(params)
 		// Bots
 		if ((!::ADV_STATS_BOTS_DISPLAY && ::AdvStats.isBot(sAttName)) || (!::ADV_STATS_FF_BOTS_ENABLED && AdvStats.isBot(sVicName)))
 			return;
+		if (::AdvStats.current_map == ::ADV_STATS_MAP_PASSING_PORT && ::ADV_STATS_BOTS.L4D1.find(sAttName) != null)
+			return;
 
 		::AdvStats.initPlayerCache(sAttName);
 		if (!(sVicName in ::AdvStats.cache[sAttName].ff.tk))
@@ -198,7 +220,9 @@ function OnGameEvent_player_death(params)
 			// Bots
 			if (!::ADV_STATS_BOTS_DISPLAY && ::AdvStats.isBot(sAttName))
 				return;
-
+			if (::AdvStats.current_map == ::ADV_STATS_MAP_PASSING_PORT && ::ADV_STATS_BOTS.L4D1.find(sAttName) != null)
+				return;
+			
 			::AdvStats.initPlayerCache(sAttName);
 			::AdvStats.cache[sAttName].specials.kills += 1;
 			if (params.headshot == 1)
@@ -239,6 +263,8 @@ function OnGameEvent_player_incapacitated(params)
 	// Bots
 	if ((!::ADV_STATS_BOTS_DISPLAY && ::AdvStats.isBot(sAttName)) || (!::ADV_STATS_FF_BOTS_ENABLED && AdvStats.isBot(sVicName)))
 		return;
+	if (::AdvStats.current_map == ::ADV_STATS_MAP_PASSING_PORT && ::ADV_STATS_BOTS.L4D1.find(sAttName) != null)
+		return;
 
 	::AdvStats.initPlayerCache(sAttName);
 	if (!(sVicName in ::AdvStats.cache[sAttName].ff.incap))
@@ -260,8 +286,6 @@ function OnGameEvent_player_hurt(params)
 
 	if (!params.rawin("userid") || ((!params.rawin("attackerentid") || params.attackerentid == 0) && params.attacker == 0))
 		return
-
-	::ADV_STATS_LOGGER.debug("Player hurt");
 	
 	local victim = GetPlayerFromUserID(params.userid)
 	local sVicName = victim.GetPlayerName()
@@ -273,6 +297,8 @@ function OnGameEvent_player_hurt(params)
 	{
 		// Bots
 		if (!::ADV_STATS_BOTS_DISPLAY && ::AdvStats.isBot(sVicName))
+			return;
+		if (::AdvStats.current_map == ::ADV_STATS_MAP_PASSING_PORT && ::ADV_STATS_BOTS.L4D1.find(sVicName) != null)
 			return;
 	
 		// Player hit by an infected or witch
@@ -301,6 +327,8 @@ function OnGameEvent_player_hurt(params)
 		// Bots
 		if (!::ADV_STATS_BOTS_DISPLAY && ::AdvStats.isBot(sVicName))
 			return;
+		if (::AdvStats.current_map == ::ADV_STATS_MAP_PASSING_PORT && ::ADV_STATS_BOTS.L4D1.find(sVicName) != null)
+			return;
 
 		::AdvStats.initPlayerCache(sVicName);
 		::AdvStats.cache[sVicName].hits.si_dmg += params.dmg_health;
@@ -323,10 +351,12 @@ function OnGameEvent_player_hurt(params)
 	}
 
 	local sAttName = attacker.GetPlayerName();
-	
+
 	// Bots
 	if (!::ADV_STATS_BOTS_DISPLAY && ::AdvStats.isBot(sAttName))
 		return;
+	if ((::AdvStats.current_map == ::ADV_STATS_MAP_PASSING_PORT) && ::ADV_STATS_BOTS.L4D1.find(sAttName) != null)
+		return;	
 
 	//
 	// Damage to tanks and special infected
@@ -358,6 +388,8 @@ function OnGameEvent_player_hurt(params)
 
 	// Bots
 	if (!::ADV_STATS_FF_BOTS_ENABLED && ::AdvStats.isBot(sVicName))
+		return;
+	if (::AdvStats.current_map == ::ADV_STATS_MAP_PASSING_PORT && ::ADV_STATS_BOTS.L4D1.find(sVicName) != null)
 		return;
 	
 	::AdvStats.initPlayerCache(sAttName);

@@ -7,9 +7,9 @@ function createWelcomeHUD()
 	WelcomeHUD <-
 	{
 	   Fields = 
-	   {
-			version = {slot = HUD_LEFT_TOP, dataval = "L4D2 Advanced Stats\nversion 0.4", name = "version", flags = HUD_FLAG_NOBG | HUD_FLAG_ALIGN_LEFT}
-	   }
+		{
+			version = {slot = HUD_LEFT_TOP, dataval = "Advanced Stats\nversion 0.5", name = "version", flags = HUD_FLAG_NOBG | HUD_FLAG_ALIGN_LEFT}
+		}
 	}
 
 	HUDSetLayout(WelcomeHUD);
@@ -19,7 +19,7 @@ function clearWelcomeHUD()
 {
 	::ADV_STATS_LOGGER.debug("clearWelcomeHUD");
 	
-	if (!WelcomeHUD)
+	if (!::AdvStats.welcome_hud_displayed)
 		return;
 	
 	WelcomeHUD.Fields.version.dataval = "";
@@ -219,12 +219,12 @@ function createStatsHUD()
 	advStatsHUD <-
 	{
 	   Fields = 
-	   {
+		{
 			ff = {slot = HUD_LEFT_TOP, dataval = "", name = "ff", flags = HUD_FLAG_NOBG},
 			si = {slot = HUD_MID_TOP, dataval = "", name = "si", flags = HUD_FLAG_NOBG},
 			dmg = {slot = HUD_RIGHT_TOP, dataval = "", name = "dmg", flags = HUD_FLAG_NOBG},
 			ci = {slot = HUD_LEFT_BOT, dataval = "", name = "ci", flags = HUD_FLAG_NOBG},
-	   }
+		}
 	}
 
 	HUDSetLayout(advStatsHUD);
