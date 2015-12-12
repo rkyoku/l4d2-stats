@@ -78,19 +78,24 @@ function descComparison(a, b)
  */
 function compileStatsFF()
 {
-	local result = "", aStats = [], sPlayer = null, aData = null;
+	local result = "", aStats = [], sPlayer = null, aData = null, count = 0;
 	
 	foreach (sPlayer, aData in ::AdvStats.cache)
 		aStats.append({ name = sPlayer, value = sumTable(aData.ff.dmg) });
 		
 	aStats.sort(ascComparison);
 	
-	foreach (aStat in aStats)
+	foreach (aStat in aStats) {
+		if (count == ::ADV_STATS_HUD_MAX_PLAYERS)
+			break;
+		
 		result += subPseudo(aStat.name) + ": "
 				+ aStat.value
 				+ ", " + sumTable(::AdvStats.cache[aStat.name].ff.incap)
 				+ ", " + sumTable(::AdvStats.cache[aStat.name].ff.tk)
 				+ "\n";
+		count++;
+	}
 
 	return "FF (Dmg, Incap, TK)\n" + result;
 }
@@ -100,18 +105,23 @@ function compileStatsFF()
  */
 function compileStatsSI()
 {
-	local result = "", aStats = [], sPlayer = null, aData = null;
+	local result = "", aStats = [], sPlayer = null, aData = null, count = 0;
 	
 	foreach (sPlayer, aData in ::AdvStats.cache)
 		aStats.append({ name = sPlayer, value = aData.specials.dmg });
 	
 	aStats.sort(descComparison);
 		
-	foreach (aStat in aStats)
+	foreach (aStat in aStats) {
+		if (count == ::ADV_STATS_HUD_MAX_PLAYERS)
+			break;
+		
 		result += subPseudo(aStat.name) + ": "
 				+ aStat.value
 				+ ", " + ::AdvStats.cache[aStat.name].specials.kills
 				+ "\n";
+		count++;
+	}
 
 	return "SI (Dmg, Kills)\n" + result;
 }
@@ -121,18 +131,23 @@ function compileStatsSI()
  */
 function compileStatsCI()
 {
-	local result = "", aStats = [], sPlayer = null, aData = null;
+	local result = "", aStats = [], sPlayer = null, aData = null, count = 0;
 		  
 	foreach (sPlayer, aData in ::AdvStats.cache)
 		aStats.append({ name = sPlayer, value = aData.hits.infected });
 	
 	aStats.sort(ascComparison);
 
-	foreach (aStat in aStats)
+	foreach (aStat in aStats) {
+		if (count == ::ADV_STATS_HUD_MAX_PLAYERS)
+			break;
+		
 		result += subPseudo(aStat.name) + ": "
 				+ aStat.value
 				+ ", " + ::AdvStats.cache[aStat.name].hits.si_dmg
 				+  "\n";
+		count++;
+	}
 
 	return "Hits CI, Damage SI\n" + result;
 }
@@ -142,18 +157,23 @@ function compileStatsCI()
  */
 function compileStatsDMG()
 {
-	local result = "", aStats = [], sPlayer = null, aData = null;
+	local result = "", aStats = [], sPlayer = null, aData = null, count = 0;
 	
 	foreach (sPlayer, aData in ::AdvStats.cache)
 		aStats.append({ name = sPlayer, value =  aData.dmg.tanks + aData.dmg.witches });
 	
 	aStats.sort(descComparison);
 	
-	foreach (aStat in aStats)
+	foreach (aStat in aStats) {
+		if (count == ::ADV_STATS_HUD_MAX_PLAYERS)
+			break;
+		
 		result += subPseudo(aStat.name) + ": "
 				+ ::AdvStats.cache[aStat.name].dmg.tanks
 				+ ", " + ::AdvStats.cache[aStat.name].dmg.witches
 				+ "\n";
+		count++;
+	}
 	
 	return "Damage (Tanks, Witches)\n" + result;
 }

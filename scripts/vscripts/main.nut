@@ -39,6 +39,7 @@ IncludeScript("events.nut");
 	"Spitter", "(1)Spitter", "(2)Spitter", "(3)Spitter",
 ];
 ::ADV_STATS_MAP_PASSING_PORT <- "c6m3_port";
+::ADV_STATS_HUD_MAX_PLAYERS <- 4;
 
 createStatsHUD();
 
