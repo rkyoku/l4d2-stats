@@ -28,10 +28,10 @@ function clearWelcomeHUD()
 
 function subPseudo(sPseudo)
 {
-	if (sPseudo.len() < 9)
+	if (sPseudo.len() < 10)
 		return sPseudo;
 
-	return sPseudo.slice(0, 8);
+	return sPseudo.slice(0, 9);
 }
 
 /**
