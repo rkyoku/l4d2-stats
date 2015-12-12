@@ -111,10 +111,9 @@ function compileStatsSI()
 		result += subPseudo(aStat.name) + ": "
 				+ aStat.value
 				+ ", " + ::AdvStats.cache[aStat.name].specials.kills
-				+ ", " + ::AdvStats.cache[aStat.name].specials.kills_hs
 				+ "\n";
 
-	return "SI (Dmg, Kills, HS)\n" + result;
+	return "SI (Dmg, Kills)\n" + result;
 }
 
 /**
