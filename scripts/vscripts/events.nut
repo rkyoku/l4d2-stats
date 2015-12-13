@@ -402,3 +402,17 @@ function OnGameEvent_player_hurt(params)
 	
 	::ADV_STATS_LOGGER.info(sAttName + " hurt teammate " + sVicName + " for " + params.dmg_health + " HP");
 }
+
+/*
+ * Fired when survivors die or when a vote to return to lobby passes
+ */
+function OnGameEvent_round_end(params)
+{
+	::ADV_STATS_LOGGER.debug("Event round_end");
+	
+	if (params.reason != 3)
+		return;
+	
+	::AdvStats.cache = {};
+	::ADV_STATS_LOGGER.info("Return to lobby vote passed. Clearing stats...");
+}

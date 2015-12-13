@@ -11,7 +11,7 @@ Features
 * Damage done and kills of special infected
 * Damage done to Tanks and Witches
 * Hits from common infected and damage received from special infected
-* Configurable by editing its source files
+* Configurable by editing the source files
 
 Install
 -------
@@ -20,7 +20,7 @@ Download the vpk.exe file located in the dist folder.
 
 Copy this file in your L4D2 add-ons folder.
 
-Example on Windows: C:\Program Files (x86)\Steam\SteamApps\common\left 4 dead 2\left4dead2\addons\advstats
+Example on Windows: C:\Program Files (x86)\Steam\SteamApps\common\left 4 dead 2\left4dead2\addons\
 
 Launch the game and activate the add-on if not already activated.
 
@@ -34,7 +34,7 @@ Copy these files in a directory placed into your L4D2 add-ons directory.
 Example on Windows: C:\Program Files (x86)\Steam\SteamApps\common\left 4 dead 2\left4dead2\addons\
 
 ```bash
-git clone git@github.com:RenaudParis/l4d2-stats.git
+git clone git@github.com:RenaudParis/l4d2-stats.git advstats
 ```
 
 ### Usage
@@ -48,14 +48,17 @@ Change these settings at your own convenience:
 ::ADV_STATS_FF_BOTS_ENABLED <- true 	// Activate FF done to bots
 ```
 
+### Scripting
+
+http://squirrel-lang.org/doc/squirrel2.html
+
 Bugs
 ----
 
 * Script's damage to Tanks and Witches does not match game-computed values
 * Sometimes the event 'incapacitated' happens after only 4 zombie hits (events) instead of five
 * When using a survivor mod (for example, 'Lee' for Coach) the stats do not save for Lee
-* Script does not handle bots names when players names are those of the bots
-* Stats are not cleared after a vote to return to the lobby
+* When a player uses a bot's name (for instance, "Rochelle"), the stats do not save for bot "(1)Rochelle"
 
 License
 -------

@@ -1,6 +1,5 @@
 /**
- * Plugin settings
- * These variables can be modified at your own convenience
+ * Settings
  */
 ::ADV_STATS_BOTS_DISPLAY <- true 		// Activate the display of bots stats
 ::ADV_STATS_FF_BOTS_ENABLED <- true 	// Activate FF done to bots
