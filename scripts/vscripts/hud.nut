@@ -118,16 +118,27 @@ function compileStatsSI()
 		
 		result += subPseudo(aStat.name) + ": "
 				+ aStat.value
-				+ ", " + ::AdvStats.cache[aStat.name].specials.kills
-				+ "\n";
+				+ ", " + ::AdvStats.cache[aStat.name].specials.kills;
+
+		if (::ADV_STATS_EXTRA_STATS)
+			result += ", " + ::AdvStats.cache[aStat.name].specials.kills_hs;
+
+		result += "\n";
+
 		count++;
 	}
+	
+	local header = "";
+	if (::ADV_STATS_EXTRA_STATS)
+		header = "SI (Dmg, Kills, HS)";
+	else
+		header = "SI (Dmg, Kills)";
 
-	return "SI (Dmg, Kills)\n" + result;
+	return header + "\n" + result;
 }
 
 /**
- * Compiling Common Infected stats
+ * Compiling stats for Common Infected hits and Special Infected received damage
  */
 function compileStatsCI()
 {
