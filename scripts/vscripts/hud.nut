@@ -155,12 +155,23 @@ function compileStatsCI()
 		
 		result += subPseudo(aStat.name) + ": "
 				+ aStat.value
-				+ ", " + ::AdvStats.cache[aStat.name].hits.si_dmg
-				+  "\n";
+				+ ", " + ::AdvStats.cache[aStat.name].hits.si_dmg;
+		
+		if (::ADV_STATS_EXTRA_STATS)
+			result += ", " + ::AdvStats.cache[aStat.name].hits.si_hits;
+		
+		result += "\n";
+
 		count++;
 	}
+	
+	local header = "";
+	if (::ADV_STATS_EXTRA_STATS)
+		header = "From CI (hits), SI (dmg, hits)";
+	else
+		header = "Hits CI, Damage SI";
 
-	return "Hits CI, Damage SI\n" + result;
+	return header + "\n" + result;
 }
 
 /**
