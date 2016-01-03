@@ -44,8 +44,9 @@ Change these settings at your own convenience:
 ```squirrel
 // main.nut
 
-::ADV_STATS_BOTS_DISPLAY <- true 		// Activate the display of bots stats
-::ADV_STATS_FF_BOTS_ENABLED <- true 	// Activate FF done to bots
+::ADV_STATS_BOTS_DISPLAY <- false    // Activate the display of bots stats
+::ADV_STATS_FF_BOTS_ENABLED <- true  // Activate FF done to bots
+::ADV_STATS_EXTRA_STATS <- false     // Activate the display of extra stats
 ```
 
 ### Scripting
@@ -55,10 +56,10 @@ http://squirrel-lang.org/doc/squirrel2.html
 Bugs
 ----
 
-* Script's damage to Tanks and Witches does not match game-computed values
+* Damage to Tanks and Witches does not match game-computed values
 * Sometimes the event 'incapacitated' happens after only 4 zombie hits (events) instead of five
-* When using a survivor mod (for example, 'Lee' for Coach) the stats do not save for Lee
-* When a player uses a bot's name (for instance, "Rochelle"), the stats do not save for bot "(1)Rochelle"
+* When using a survivor mod (e.g. 'Lee' for Coach), the stats do not save for Lee
+* Bots are no longer recognized when players use their names (e.g. a player named 'Rochelle')
 
 License
 -------
