@@ -401,6 +401,7 @@ function OnGameEvent_round_end(params)
 	::ADV_STATS_LOGGER.info("Return to lobby vote passed. Clearing stats...");
 }
 
+/*
  * Fired when survivors die or when a vote to return to lobby passes
  */
 function OnGameEvent_round_end(params)
