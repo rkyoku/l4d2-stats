@@ -20,10 +20,10 @@ IncludeScript("events.nut");
 ::ADV_STATS_LOGGER <- Logger();
 ::AdvStats <- {
 	cache = {},
+	welcome_hud_visible = false,
 	hud_visible = false,
 	endgame_hud_triggered = false,
 	finale_win = false,
-	welcome_hud_displayed = false,
 	current_map = null
 };
 ::ADV_STATS_BOTS <- {

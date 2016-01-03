@@ -17,31 +17,6 @@ function OnGameEvent_player_first_spawn(params)
 }
 
 /**
- * Called when a player entered the start area (first map)
- */
-function OnGameEvent_player_entered_start_area(params)
-{
-    ::ADV_STATS_LOGGER.debug("Event player_entered_start_area");
-
-	if (::AdvStats.welcome_hud_displayed)
-		return;
-
-	createWelcomeHUD();
-	::AdvStats.welcome_hud_displayed = true;
-}
-
-/**
- * Called when a player left the start area (first map)
- */
-function OnGameEvent_player_left_start_area(params)
-{
-    ::ADV_STATS_LOGGER.debug("Event player_left_start_area");
-	
-	if (Director.HasAnySurvivorLeftSafeArea())
-		clearWelcomeHUD();
-}
-
-/**
  * Called when a player leaves a checkpoint
  *
  * NOTA: this function seems to be called when survivors spawn inside shelter,
@@ -51,8 +26,11 @@ function OnGameEvent_player_left_checkpoint(params)
 {
 	::ADV_STATS_LOGGER.debug("Event player_left_checkpoint");
 
-	if (Director.HasAnySurvivorLeftSafeArea())
-		clearStatsHUD();
+	if (!Director.HasAnySurvivorLeftSafeArea())
+		return;
+	
+	clearStatsHUD();
+	clearWelcomeHUD();
 }
 
 function OnGameEvent_finale_vehicle_leaving(params)
@@ -84,9 +62,15 @@ function OnGameEvent_round_start_post_nav(params)
 	::ADV_STATS_LOGGER.debug("Event round_start_post_nav");
 	
 	::AdvStats.load();
-	showStatsHUD();
-	
 	AdvStatsDebug();
+	
+	if (::AdvStats.cache.len()) {
+		showStatsHUD();
+	} else {
+		// Replace the stats HUD by the welcome HUD for the first map, when no stats have been stored yet
+		createWelcomeHUD();
+		::AdvStats.welcome_hud_visible = true;
+	}
 }
 
 /**
