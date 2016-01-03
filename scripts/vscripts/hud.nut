@@ -167,9 +167,9 @@ function compileStatsCI()
 	
 	local header = "";
 	if (::ADV_STATS_EXTRA_STATS)
-		header = "From CI (hits), SI (dmg, hits)";
+		header = "By CI (Hits), SI (Dmg, Hits)";
 	else
-		header = "Hits CI, Damage SI";
+		header = "By CI (Hits), SI (Dmg)";
 
 	return header + "\n" + result;
 }
