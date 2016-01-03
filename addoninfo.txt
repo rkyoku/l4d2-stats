@@ -2,7 +2,7 @@
 {
 	addonSteamAppID				550
 	addonTitle					"Advanced Stats"
-	addonVersion				"0.5"
+	addonVersion				"0.6"
 	addonTagline				"Advanced Stats - Better endgame stats"
 	addonAuthor					"Lideln"
 	addonAuthorSteamID			"LidelnFR"
