@@ -8,7 +8,7 @@ function createWelcomeHUD()
 	{
 	   Fields = 
 		{
-			version = {slot = HUD_LEFT_TOP, dataval = "L4D2 Advanced Stats\nversion 0.6", name = "version", flags = HUD_FLAG_NOBG | HUD_FLAG_ALIGN_LEFT}
+			version = {slot = HUD_LEFT_TOP, dataval = "L4D2 Advanced Stats\nversion 1.0", name = "version", flags = HUD_FLAG_NOBG | HUD_FLAG_ALIGN_LEFT}
 		}
 	}
 
