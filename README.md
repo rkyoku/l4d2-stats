@@ -71,3 +71,8 @@ License
 
 Copyright (c) 2015 RenaudParis.
 This content is released under [the MIT license](https://github.com/RenaudParis/l4d2-stats/blob/master/LICENSE).
+
+ChangeLog
+---------
+
+See [CHANGELOG](CHANGELOG.md) file for details.
