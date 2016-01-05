@@ -6,7 +6,7 @@ L4D2 Advanced Stats
 Features
 --------
 
-* Coop and Realism game modes
+* Single Player, Coop and Realism game modes
 * Friendly Fire (damage, incapacitated, team kills)
 * Damage done and kills of special infected
 * Damage done to Tanks and Witches
@@ -16,11 +16,9 @@ Features
 Install
 -------
 
-Download the vpk.exe file located in the dist folder.
+Download the advstats.vpk file located in the dist folder.
 
-Copy this file in your L4D2 add-ons folder.
-
-Example on Windows: C:\Program Files (x86)\Steam\SteamApps\common\left 4 dead 2\left4dead2\addons\
+Double-click on the .vpk file to install the add-on. If it does not work, just copy the .vpk in your L4D2 add-ons folder (generally C:\Program Files (x86)\Steam\SteamApps\common\left 4 dead 2\left4dead2\addons)
 
 Launch the game and activate the add-on if not already activated.
 
@@ -29,9 +27,9 @@ Contributing
 
 Feel free to contribute to this project and open pull requests.
 
-Copy these files in a directory placed into your L4D2 add-ons directory.
+Copy these files in a directory placed into your L4D2 add-ons folder (generally C:\Program Files (x86)\Steam\SteamApps\common\left 4 dead 2\left4dead2\addons).
 
-Example on Windows: C:\Program Files (x86)\Steam\SteamApps\common\left 4 dead 2\left4dead2\addons\
+Or execute this command in your L4D2 add-on folder:
 
 ```bash
 git clone git@github.com:RenaudParis/l4d2-stats.git advstats
@@ -49,9 +47,12 @@ Change these settings at your own convenience:
 ::ADV_STATS_EXTRA_STATS <- false     // Activate the display of extra stats
 ```
 
+Activating extra stats will display headshots done to special infected and hits received from special infected.
+
 ### Scripting
 
-http://squirrel-lang.org/doc/squirrel2.html
+[L4D2 Script functions](https://developer.valvesoftware.com/wiki/List_of_L4D2_Script_Functions)
+[Squirrel](http://squirrel-lang.org/doc/squirrel2.html)
 
 Bugs
 ----
