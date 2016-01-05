@@ -3,11 +3,13 @@ Squirrel
 
 Documentation about Squirrel programming language can be found here:
 
-* http://squirrel-lang.org/
-* https://electricimp.com/docs/squirrel/squirrelcrib/
+* [Squirrel](http://squirrel-lang.org/)
+* [Squirrel 2.2 Reference Manual](http://squirrel-lang.org/doc/squirrel2.html)
+* [Squirrel Programming Guide](https://electricimp.com/docs/squirrel/squirrelcrib/)
 
-Useful functions for debugging
-------------------------------
+
+Useful functions for debugging purposes
+---------------------------------------
 
 ```squirrel
 local victim = EntIndexToHScript(params.entityid)

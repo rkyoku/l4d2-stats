@@ -40,11 +40,13 @@ git clone git@github.com:RenaudParis/l4d2-stats.git advstats
 Change these settings at your own convenience:
 
 ```squirrel
-// main.nut
+// scripts/vscripts/main.nut
 
 ::ADV_STATS_BOTS_DISPLAY <- false    // Activate the display of bots stats
 ::ADV_STATS_FF_BOTS_ENABLED <- true  // Activate FF done to bots
 ::ADV_STATS_EXTRA_STATS <- false     // Activate the display of extra stats
+::ADV_STATS_LOG_LEVEL <- 0           // 0 = no debug, 1 = info level, 2 = debug level
+::ADV_STATS_DUMP <- false            // Dump stats data at start/end of map
 ```
 
 Activating extra stats will display headshots done to special infected and hits received from special infected.
@@ -52,7 +54,7 @@ Activating extra stats will display headshots done to special infected and hits 
 ### Scripting
 
 * [L4D2 Script functions](https://developer.valvesoftware.com/wiki/List_of_L4D2_Script_Functions)
-* [Squirrel](http://squirrel-lang.org/doc/squirrel2.html)
+* [Squirrel documentation](https://github.com/RenaudParis/l4d2-stats/blob/master/doc/SQUIRREL.md)
 
 Bugs
 ----
