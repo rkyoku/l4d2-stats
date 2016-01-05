@@ -1,3 +1,5 @@
+![L4D2 Advanced Stats preview](doc/advstats-preview.gif)
+
 L4D2 Advanced Stats
 ===================
 
@@ -54,7 +56,7 @@ Activating extra stats will display headshots done to special infected and hits 
 ### Scripting
 
 * [L4D2 Script functions](https://developer.valvesoftware.com/wiki/List_of_L4D2_Script_Functions)
-* [Squirrel documentation](https://github.com/RenaudParis/l4d2-stats/blob/master/doc/SQUIRREL.md)
+* [Squirrel documentation](doc/SQUIRREL.md)
 
 Bugs
 ----
