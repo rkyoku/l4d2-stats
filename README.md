@@ -51,8 +51,8 @@ Activating extra stats will display headshots done to special infected and hits 
 
 ### Scripting
 
-[L4D2 Script functions](https://developer.valvesoftware.com/wiki/List_of_L4D2_Script_Functions)
-[Squirrel](http://squirrel-lang.org/doc/squirrel2.html)
+* [L4D2 Script functions](https://developer.valvesoftware.com/wiki/List_of_L4D2_Script_Functions)
+* [Squirrel](http://squirrel-lang.org/doc/squirrel2.html)
 
 Bugs
 ----
