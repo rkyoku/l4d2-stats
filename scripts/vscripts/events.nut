@@ -138,7 +138,7 @@ function OnGameEvent_infected_hurt(params)
 	local sAttName = attacker.GetPlayerName()
 	
 	// Bots
-	if (!::ADV_STATS_BOTS_DISPLAY && ::AdvStats.isBot(sAttName))
+	if (!::ADV_STATS_BOTS_ENABLED && ::AdvStats.isBot(sAttName))
 		return;
 	if (::AdvStats.current_map == ::ADV_STATS_MAP_PASSING_PORT && ::ADV_STATS_BOTS.L4D1.find(sAttName) != null)
 		return;
@@ -190,7 +190,7 @@ function OnGameEvent_player_death(params)
 	if (victim.IsSurvivor())
 	{
 		// Bots
-		if ((!::ADV_STATS_BOTS_DISPLAY && ::AdvStats.isBot(sAttName)) || (!::ADV_STATS_FF_BOTS_ENABLED && AdvStats.isBot(sVicName)))
+		if ((!::ADV_STATS_BOTS_ENABLED && ::AdvStats.isBot(sAttName)) || (!::ADV_STATS_FF_BOTS_ENABLED && AdvStats.isBot(sVicName)))
 			return;
 		if (::AdvStats.current_map == ::ADV_STATS_MAP_PASSING_PORT && ::ADV_STATS_BOTS.L4D1.find(sAttName) != null)
 			return;
@@ -209,7 +209,7 @@ function OnGameEvent_player_death(params)
 		if (::AdvStats.isSpecialInfected(sVicName))
 		{
 			// Bots
-			if (!::ADV_STATS_BOTS_DISPLAY && ::AdvStats.isBot(sAttName))
+			if (!::ADV_STATS_BOTS_ENABLED && ::AdvStats.isBot(sAttName))
 				return;
 			if (::AdvStats.current_map == ::ADV_STATS_MAP_PASSING_PORT && ::ADV_STATS_BOTS.L4D1.find(sAttName) != null)
 				return;
@@ -252,7 +252,7 @@ function OnGameEvent_player_incapacitated(params)
 	::ADV_STATS_LOGGER.debug("Player Incapacitated", params);
 	
 	// Bots
-	if ((!::ADV_STATS_BOTS_DISPLAY && ::AdvStats.isBot(sAttName)) || (!::ADV_STATS_FF_BOTS_ENABLED && AdvStats.isBot(sVicName)))
+	if ((!::ADV_STATS_BOTS_ENABLED && ::AdvStats.isBot(sAttName)) || (!::ADV_STATS_FF_BOTS_ENABLED && AdvStats.isBot(sVicName)))
 		return;
 	if (::AdvStats.current_map == ::ADV_STATS_MAP_PASSING_PORT && ::ADV_STATS_BOTS.L4D1.find(sAttName) != null)
 		return;
@@ -287,7 +287,7 @@ function OnGameEvent_player_hurt(params)
 	if (!("attacker" in params && params.attacker != 0))
 	{
 		// Bots
-		if (!::ADV_STATS_BOTS_DISPLAY && ::AdvStats.isBot(sVicName))
+		if (!::ADV_STATS_BOTS_ENABLED && ::AdvStats.isBot(sVicName))
 			return;
 		if (::AdvStats.current_map == ::ADV_STATS_MAP_PASSING_PORT && ::ADV_STATS_BOTS.L4D1.find(sVicName) != null)
 			return;
@@ -316,7 +316,7 @@ function OnGameEvent_player_hurt(params)
 	if (!::AdvStats.isSpecialInfected(sVicName) && ::AdvStats.isSpecialInfected(sAttName) && params.dmg_health != 0 && !victim.IsIncapacitated() && sVicName != "tank")
 	{
 		// Bots
-		if (!::ADV_STATS_BOTS_DISPLAY && ::AdvStats.isBot(sVicName))
+		if (!::ADV_STATS_BOTS_ENABLED && ::AdvStats.isBot(sVicName))
 			return;
 		if (::AdvStats.current_map == ::ADV_STATS_MAP_PASSING_PORT && ::ADV_STATS_BOTS.L4D1.find(sVicName) != null)
 			return;
@@ -344,7 +344,7 @@ function OnGameEvent_player_hurt(params)
 	local sAttName = attacker.GetPlayerName();
 
 	// Bots
-	if (!::ADV_STATS_BOTS_DISPLAY && ::AdvStats.isBot(sAttName))
+	if (!::ADV_STATS_BOTS_ENABLED && ::AdvStats.isBot(sAttName))
 		return;
 	if ((::AdvStats.current_map == ::ADV_STATS_MAP_PASSING_PORT) && ::ADV_STATS_BOTS.L4D1.find(sAttName) != null)
 		return;	
