@@ -1,23 +1,21 @@
 /**
- * Settings
+ * Configuration settings
  */
-::ADV_STATS_BOTS_DISPLAY <- false 		// Activate the display of bots stats
-::ADV_STATS_FF_BOTS_ENABLED <- true 	// Activate FF done to bots
-::ADV_STATS_EXTRA_STATS <- false		// Activate the display of extra stats
-::ADV_STATS_LOG_LEVEL <- 0 				// 0 = no debug, 1 = info level, 2 = debug level
-::ADV_STATS_DUMP <- false 				// Dump stats data at start/end of map
-
-printl("################################################")
-printl("###                                          ###")
-printl("###           Advanced Stats V 1.0           ###")
-printl("###                                          ###")
-printl("################################################")
+::ADV_STATS_BOTS_DISPLAY <- true    // Activate the display of bots stats
+::ADV_STATS_FF_BOTS_ENABLED <- true // Activate FF done to bots
+::ADV_STATS_EXTRA_STATS <- true	    // Activate the display of extra stats
+::ADV_STATS_LOG_LEVEL <- 2          // 0 = no debug, 1 = info level, 2 = debug level
+::ADV_STATS_DUMP <- true            // Dump stats data at start/end of map
+/**
+ * End of configuration settings
+ */
 
 IncludeScript("logger.nut");
 IncludeScript("hud.nut");
 IncludeScript("events.nut");
 
-::ADV_STATS_LOGGER <- Logger();
+::ADV_STATS_VERSION <- "1.1 beta";
+::ADV_STATS_LOGGER <- Logger(::ADV_STATS_LOG_LEVEL);
 ::AdvStats <- {
 	cache = {},
 	welcome_hud_visible = false,
@@ -41,7 +39,19 @@ IncludeScript("events.nut");
 ::ADV_STATS_MAP_PASSING_PORT <- "c6m3_port";
 ::ADV_STATS_HUD_MAX_PLAYERS <- 4;
 
-createStatsHUD();
+/**
+ * Add-on initialization
+ */
+function init()
+{
+	printl("#############################");
+	printl("###                       ###");
+	printl("###  Advanced Stats V " + ::ADV_STATS_VERSION + " ###");
+	printl("###                       ###");
+	printl("#############################");
+	
+	createStatsHUD();
+}
 
 /**
  * Stats cache debug
@@ -51,15 +61,13 @@ function AdvStatsDebug()
 	if (!::ADV_STATS_DUMP)
 		return;
 
-	printl("")
-	printl("################################################")
-	printl("###                                          ###")
-	printl("###          Advanced Stats - DUMP           ###")
-	printl("###                                          ###")
-	printl("################################################")
-	DeepPrintTable(::AdvStats.cache)
-	printl("################################################")
-	printl("")
+	printl("##############################");
+	printl("###                        ###");
+	printl("###  Advanced Stats - DUMP ###");
+	printl("###                        ###");
+	printl("##############################");
+	DeepPrintTable(::AdvStats.cache);
+	printl("##############################");
 }
 
 /**
@@ -144,3 +152,5 @@ function AdvStats::load()
 	if (::AdvStats.cache.len() == 0)
 		::AdvStats.cache <- {};
 }
+
+init();

@@ -8,10 +8,15 @@ class Logger
 	
 	// Prefix text for all logs
 	static log_prefix = "[ADV_STATS]";
+	
+	constructor(level)
+	{
+		currentLevel = level;
+	}
 
 	function info(message)
 	{
-		if (!(::ADV_STATS_LOG_LEVEL >= levels.info))
+		if (!(currentLevel >= levels.info))
 		    return;
 		
 		printl(log_prefix + "[INFO] " + message);
@@ -19,7 +24,7 @@ class Logger
 	
 	function debug(message, params = null)
 	{
-		if (!(::ADV_STATS_LOG_LEVEL >= levels.debug))
+		if (!(currentLevel >= levels.debug))
 		    return;
 			
 		printl(log_prefix + "[DEBUG] " + message);
@@ -29,4 +34,6 @@ class Logger
 
 		g_ModeScript.DeepPrintTable(params);
 	}
+	
+	currentLevel = 0;
 }
