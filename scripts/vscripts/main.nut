@@ -121,6 +121,7 @@ function AdvStats::initPlayerCache(sPlayer)
 			dmg = 0,		// Damage dealt
 			kills = 0,		// Kills
 			kills_hs = 0,	// Head shots
+			seen = [],		// identifiers of SI which have been hit at least 1 time
 		}
 	};
 }

@@ -118,7 +118,8 @@ function compileStatsSI()
 				+ ", " + ::AdvStats.cache[aStat.name].specials.kills;
 
 		if (::ADV_STATS_EXTRA_STATS)
-			result += ", " + ::AdvStats.cache[aStat.name].specials.kills_hs;
+			result += ", " + ::AdvStats.cache[aStat.name].specials.kills_hs
+					+ ", " + ::AdvStats.cache[aStat.name].specials.seen.len();
 
 		result += "\n";
 
@@ -127,7 +128,7 @@ function compileStatsSI()
 	
 	local header = "";
 	if (::ADV_STATS_EXTRA_STATS)
-		header = "SI (Dmg, Kills, HS)";
+		header = "SI (Dmg, Kills, HS, Seen)";
 	else
 		header = "SI (Dmg, Kills)";
 

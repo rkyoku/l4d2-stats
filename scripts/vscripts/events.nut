@@ -361,12 +361,18 @@ function OnGameEvent_player_hurt(params)
 		else
 			damageDone = params.dmg_health;
 		
-		::AdvStats.initPlayerCache(sAttName);
+		::AdvStats.initPlayerCache(sAttName);	
 
-		if (sVicName == "Tank")
+		if (sVicName == "Tank") {
 			::AdvStats.cache[sAttName].dmg.tanks += damageDone;
-		else if (::AdvStats.isSpecialInfected(sVicName))
+		} else if (::AdvStats.isSpecialInfected(sVicName)) {
 			::AdvStats.cache[sAttName].specials.dmg += damageDone;
+			
+			if (::AdvStats.cache[sAttName].specials.seen.find(params.userid) == null) {
+				::AdvStats.cache[sAttName].specials.seen.append(params.userid);
+				::ADV_STATS_LOGGER.debug(sAttName + " has seen a " + sVicName);
+			}
+		}
 
 		::ADV_STATS_LOGGER.info(sAttName + " dealt " + damageDone + " to a " + sVicName);
 
