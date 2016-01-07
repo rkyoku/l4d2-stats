@@ -4,6 +4,7 @@
 ::ADV_STATS_BOTS_DISPLAY <- true    // Activate the display of bots stats
 ::ADV_STATS_FF_BOTS_ENABLED <- true // Activate FF done to bots
 ::ADV_STATS_EXTRA_STATS <- true	    // Activate the display of extra stats
+::ADV_STATS_SELF_FF_ENABLED <- true	// Self FF is taken into consideration
 ::ADV_STATS_LOG_LEVEL <- 2          // 0 = no debug, 1 = info level, 2 = debug level
 ::ADV_STATS_DUMP <- true            // Dump stats data at start/end of map
 /**

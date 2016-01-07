@@ -393,6 +393,9 @@ function OnGameEvent_player_hurt(params)
 	if (!(sVicName in ::AdvStats.cache[sAttName].ff.dmg))
 		::AdvStats.cache[sAttName].ff.dmg[sVicName] <- 0;
 
+	if (!::ADV_STATS_SELF_FF_ENABLED && sAttName == sVicName)
+		return;
+
 	::AdvStats.cache[sAttName].ff.dmg[sVicName] += params.dmg_health;
 	
 	::ADV_STATS_LOGGER.info(sAttName + " hurt teammate " + sVicName + " for " + params.dmg_health + " HP");
