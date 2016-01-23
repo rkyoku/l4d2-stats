@@ -215,6 +215,7 @@ function OnGameEvent_player_death(params)
 				return;
 			
 			::AdvStats.initPlayerCache(sAttName);
+			::AdvStats.specials.killed += 1;
 			::AdvStats.cache[sAttName].specials.kills += 1;
 			if (params.headshot == 1)
 				::AdvStats.cache[sAttName].specials.kills_hs += 1;
@@ -363,17 +364,21 @@ function OnGameEvent_player_hurt(params)
 		
 		::AdvStats.initPlayerCache(sAttName);	
 
-		if (sVicName == "Tank") {
+		if (sVicName == "Tank")
+		{
 			::AdvStats.cache[sAttName].dmg.tanks += damageDone;
-		} else if (::AdvStats.isSpecialInfected(sVicName)) {
+		} else if (::AdvStats.isSpecialInfected(sVicName))
+		{
 			::AdvStats.cache[sAttName].specials.dmg += damageDone;
-			
-			if (::AdvStats.cache[sAttName].specials.seen.find(params.userid) == null) {
-				::AdvStats.cache[sAttName].specials.seen.append(params.userid);
-				::ADV_STATS_LOGGER.debug(sAttName + " has seen a " + sVicName);
+		
+			if (!::AdvStats.SIHasBeenSeen(sAttName, params.userid))
+			{
+				local index = ::AdvStats.cache[sAttName].specials.seen.len();
+				::AdvStats.cache[sAttName].specials.seen[index] <- params.userid;
+				::ADV_STATS_LOGGER.debug(sAttName + " has seen a new SI: " + sVicName);
 			}
 		}
-
+		
 		::ADV_STATS_LOGGER.info(sAttName + " dealt " + damageDone + " to a " + sVicName);
 
 		return;

@@ -102,7 +102,7 @@ function compileStatsFF()
  */
 function compileStatsSI()
 {
-	local result = "", aStats = [], sPlayer = null, aData = null, count = 0;
+	local result = "", aStats = [], sPlayer = null, aData = null, count = 0, seen = 0;
 	
 	foreach (sPlayer, aData in ::AdvStats.cache)
 		aStats.append({ name = sPlayer, value = aData.specials.dmg });
@@ -118,8 +118,16 @@ function compileStatsSI()
 				+ ", " + ::AdvStats.cache[aStat.name].specials.kills;
 
 		if (::ADV_STATS_EXTRA_STATS)
+		{
+			if (::AdvStats.specials.killed >= 1)
+			{
+				seen = format("%.0f", (::AdvStats.cache[aStat.name].specials.seen.len() / ::AdvStats.specials.killed * 100));
+				::ADV_STATS_LOGGER.debug(">>>>>>>>>> seen: " + seen + " - " + (::AdvStats.cache[aStat.name].specials.seen.len() / ::AdvStats.specials.killed * 100));
+			}
+			
 			result += ", " + ::AdvStats.cache[aStat.name].specials.kills_hs
-					+ ", " + ::AdvStats.cache[aStat.name].specials.seen.len();
+					+ ", " + seen + "%";
+		}
 
 		result += "\n";
 

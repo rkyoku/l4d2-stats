@@ -23,7 +23,10 @@ IncludeScript("events.nut");
 	hud_visible = false,
 	endgame_hud_triggered = false,
 	finale_win = false,
-	current_map = null
+	current_map = null,
+	specials = {
+		killed = 0
+	}
 };
 ::ADV_STATS_BOTS <- {
 	L4D1 = ["Louis", "Bill", "Francis", "Zoey"],
@@ -68,6 +71,8 @@ function AdvStatsDebug()
 	printl("###                        ###");
 	printl("##############################");
 	DeepPrintTable(::AdvStats.cache);
+	printl("##############################");
+	DeepPrintTable(::AdvStats.specials);
 	printl("##############################");
 }
 
@@ -122,7 +127,7 @@ function AdvStats::initPlayerCache(sPlayer)
 			dmg = 0,		// Damage dealt
 			kills = 0,		// Kills
 			kills_hs = 0,	// Head shots
-			seen = [],		// identifiers of SI which have been hit at least 1 time
+			seen = {},		// identifiers of SI which have been hit at least 1 time
 		}
 	};
 }
@@ -138,9 +143,13 @@ function AdvStats::save()
 	{
 		::ADV_STATS_LOGGER.debug("FINALE WIN!! Clearing stats...");
 		::AdvStats.cache = {};
+		::AdvStats.specials = {
+			killed = 0
+		}
 	}
 
-	SaveTable("_adv_stats", ::AdvStats.cache);
+	SaveTable("_adv_stats_cache", ::AdvStats.cache);
+	SaveTable("_adv_stats_specials", ::AdvStats.specials);
 }
 
 /**
@@ -150,9 +159,25 @@ function AdvStats::load()
 {
 	::ADV_STATS_LOGGER.debug("Loading stats...");
 	
-	RestoreTable("_adv_stats", ::AdvStats.cache);
+	RestoreTable("_adv_stats_cache", ::AdvStats.cache);
 	if (::AdvStats.cache.len() == 0)
 		::AdvStats.cache <- {};
+	
+	RestoreTable("_adv_stats_specials", ::AdvStats.specials);
+}
+
+/**
+ * Has a player already seen a special infected?
+ */
+function AdvStats::SIHasBeenSeen(sPlayer, userid)
+{
+	foreach (index, value in ::AdvStats.cache[sPlayer].specials.seen)
+	{
+		if (value == userid)
+			return true;
+	}
+	
+	return false;
 }
 
 init();
