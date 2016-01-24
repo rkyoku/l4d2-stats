@@ -127,7 +127,7 @@ function AdvStats::initPlayerCache(sPlayer)
 			dmg = 0,		// Damage dealt
 			kills = 0,		// Kills
 			kills_hs = 0,	// Head shots
-			seen = {},		// identifiers of SI which have been hit at least 1 time
+			spotted = {},	// identifiers list of Special infected which have been hit at least 1 time
 		}
 	};
 }
@@ -167,11 +167,11 @@ function AdvStats::load()
 }
 
 /**
- * Has a player already seen a special infected?
+ * Has a player already spotted a special infected?
  */
 function AdvStats::SIHasBeenSeen(sPlayer, userid)
 {
-	foreach (index, value in ::AdvStats.cache[sPlayer].specials.seen)
+	foreach (index, value in ::AdvStats.cache[sPlayer].specials.spotted)
 	{
 		if (value == userid)
 			return true;

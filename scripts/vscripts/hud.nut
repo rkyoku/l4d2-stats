@@ -102,7 +102,7 @@ function compileStatsFF()
  */
 function compileStatsSI()
 {
-	local result = "", aStats = [], sPlayer = null, aData = null, count = 0, seen = 0;
+	local spotted = "-", result = "", aStats = [], sPlayer = null, aData = null, count = 0;
 	
 	foreach (sPlayer, aData in ::AdvStats.cache)
 		aStats.append({ name = sPlayer, value = aData.specials.dmg });
@@ -120,13 +120,10 @@ function compileStatsSI()
 		if (::ADV_STATS_EXTRA_STATS)
 		{
 			if (::AdvStats.specials.killed >= 1)
-			{
-				seen = format("%.0f", (::AdvStats.cache[aStat.name].specials.seen.len() / ::AdvStats.specials.killed * 100));
-				::ADV_STATS_LOGGER.debug(">>>>>>>>>> seen: " + seen + " - " + (::AdvStats.cache[aStat.name].specials.seen.len() / ::AdvStats.specials.killed * 100));
-			}
+				spotted = format("%.0f", ::AdvStats.cache[aStat.name].specials.spotted.len().tofloat() / ::AdvStats.specials.killed.tofloat() * 100) + "%";
 			
 			result += ", " + ::AdvStats.cache[aStat.name].specials.kills_hs
-					+ ", " + seen + "%";
+					+ ", " + spotted;
 		}
 
 		result += "\n";
@@ -136,7 +133,7 @@ function compileStatsSI()
 	
 	local header = "";
 	if (::ADV_STATS_EXTRA_STATS)
-		header = "SI (Dmg, Kills, HS, Seen)";
+		header = "SI (Dmg, Kills, HS, Spotted)";
 	else
 		header = "SI (Dmg, Kills)";
 

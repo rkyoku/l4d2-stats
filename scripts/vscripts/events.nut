@@ -373,9 +373,9 @@ function OnGameEvent_player_hurt(params)
 		
 			if (!::AdvStats.SIHasBeenSeen(sAttName, params.userid))
 			{
-				local index = ::AdvStats.cache[sAttName].specials.seen.len();
-				::AdvStats.cache[sAttName].specials.seen[index] <- params.userid;
-				::ADV_STATS_LOGGER.debug(sAttName + " has seen a new SI: " + sVicName);
+				local index = ::AdvStats.cache[sAttName].specials.spotted.len();
+				::AdvStats.cache[sAttName].specials.spotted[index] <- params.userid;
+				::ADV_STATS_LOGGER.debug(sAttName + " has spotted a new SI: " + sVicName);
 			}
 		}
 		
